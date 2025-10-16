@@ -1,10 +1,15 @@
 'use client';
 
-import { WalletMultiButton } from '@solana/wallet-adapter-react-ui';
+import dynamic from 'next/dynamic';
+
+const WalletMultiButtonDynamic = dynamic(
+  async () => (await import('@solana/wallet-adapter-react-ui')).WalletMultiButton,
+  { ssr: false }
+);
 
 export default function WalletButton() {
   return (
-    <WalletMultiButton
+    <WalletMultiButtonDynamic
       className="!bg-purple-600 hover:!bg-purple-700 !transition-colors"
     />
   );
