@@ -39,3 +39,14 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Rust / Anchor
+target/
+**/*.rs.bk
+*.so
+test-ledger/
+.anchor/
+Cargo.lock
+
+# Turbopack
+.turbo
