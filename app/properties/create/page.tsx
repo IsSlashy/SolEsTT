@@ -4,10 +4,15 @@ import { useState } from 'react';
 import Header from '@/components/Header';
 import { useWallet } from '@solana/wallet-adapter-react';
 import { useRouter } from 'next/navigation';
+// import { usePropertyTokenization } from '@/lib/solana/hooks/usePropertyTokenization';
+
+// Toggle this to enable/disable blockchain integration
+const USE_BLOCKCHAIN = false; // Set to true when contracts are deployed
 
 export default function CreateProperty() {
   const { connected, publicKey } = useWallet();
   const router = useRouter();
+  // const { createProperty, tokenizeProperty, loading: blockchainLoading, error: blockchainError } = usePropertyTokenization();
 
   const [formData, setFormData] = useState({
     name: '',
@@ -33,18 +38,46 @@ export default function CreateProperty() {
     setError('');
 
     try {
-      // TODO: Implement actual blockchain interaction
-      // For now, we'll just log the data
-      console.log('Creating property:', formData);
+      if (USE_BLOCKCHAIN) {
+        // BLOCKCHAIN MODE: Create property on-chain
+        console.log('Creating property on blockchain:', formData);
 
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 2000));
+        // Uncomment when ready to use blockchain:
+        /*
+        const result = await createProperty({
+          name: formData.name,
+          location: formData.location,
+          totalValue: Number(formData.totalValue),
+          totalShares: Number(formData.totalShares),
+          rentPerMonth: Number(formData.rentPerMonth),
+          metadataUri: formData.images || '', // Should be IPFS/Arweave URI in production
+        });
 
-      alert('Property created successfully! (Demo mode - not yet on blockchain)');
+        console.log('Property created on-chain!', result);
+
+        // Tokenize the property (create SPL tokens)
+        const tokenizeResult = await tokenizeProperty(formData.name);
+        console.log('Property tokenized!', tokenizeResult);
+
+        alert(`Property created successfully!\n\nProperty Address: ${result.propertyAddress}\nToken Mint: ${tokenizeResult.mintAddress}\n\nTransaction: ${result.signature}`);
+        */
+
+        alert('Blockchain integration ready! Uncomment the code in handleSubmit to enable.');
+
+      } else {
+        // DEMO MODE: Just simulate the creation
+        console.log('Creating property (demo mode):', formData);
+
+        // Simulate API call
+        await new Promise(resolve => setTimeout(resolve, 2000));
+
+        alert('Property created successfully! (Demo mode - not yet on blockchain)\n\nTo enable blockchain integration:\n1. Deploy smart contracts to Devnet\n2. Update program IDs in lib/solana/programs.ts\n3. Set USE_BLOCKCHAIN = true in this file');
+      }
+
       router.push('/properties');
-    } catch (err) {
+    } catch (err: any) {
       console.error('Error creating property:', err);
-      setError('Failed to create property. Please try again.');
+      setError(err.message || 'Failed to create property. Please try again.');
     } finally {
       setLoading(false);
     }
