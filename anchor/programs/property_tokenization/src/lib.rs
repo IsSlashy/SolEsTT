@@ -1,7 +1,7 @@
 use anchor_lang::prelude::*;
 use anchor_spl::token::{self, Mint, Token, TokenAccount};
 
-declare_id!("11111111111111111111111111111111");
+declare_id!("pRoPoA8Q748zuxX2DptJpC9b8e3a56Ap3FVUu5U7r6Z");
 
 #[program]
 pub mod property_tokenization {

@@ -28,6 +28,8 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        <div className="cyber-bg"></div>
+        <div className="cyber-grid"></div>
         <WalletContextProvider>
           {children}
         </WalletContextProvider>

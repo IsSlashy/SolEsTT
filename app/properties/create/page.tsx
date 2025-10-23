@@ -4,15 +4,21 @@ import { useState } from 'react';
 import Header from '@/components/Header';
 import { useWallet } from '@solana/wallet-adapter-react';
 import { useRouter } from 'next/navigation';
-// import { usePropertyTokenization } from '@/lib/solana/hooks/usePropertyTokenization';
+import ImageUploader from '@/components/upload/ImageUploader';
+import Model3DUploader from '@/components/upload/Model3DUploader';
+import PageTransition from '@/components/animations/PageTransition';
+import Property3DViewer from '@/components/3d/Property3DViewer';
+import { usePropertyTokenization } from '@/lib/solana/hooks/usePropertyTokenization';
+import { useDueDiligence } from '@/lib/solana/hooks/useDueDiligence';
 
 // Toggle this to enable/disable blockchain integration
-const USE_BLOCKCHAIN = false; // Set to true when contracts are deployed
+const USE_BLOCKCHAIN = process.env.NEXT_PUBLIC_DEMO_MODE !== 'true'; // Uses demo mode from .env.local
 
 export default function CreateProperty() {
   const { connected, publicKey } = useWallet();
   const router = useRouter();
-  // const { createProperty, tokenizeProperty, loading: blockchainLoading, error: blockchainError } = usePropertyTokenization();
+  const { createProperty, tokenizeProperty, loading: blockchainLoading, error: blockchainError } = usePropertyTokenization();
+  const { uploadDocument } = useDueDiligence();
 
   const [formData, setFormData] = useState({
     name: '',
@@ -26,9 +32,10 @@ export default function CreateProperty() {
     bathrooms: '',
     squareFeet: '',
     yearBuilt: '',
-    images: '',
   });
 
+  const [uploadedImages, setUploadedImages] = useState<File[]>([]);
+  const [uploaded3DModel, setUploaded3DModel] = useState<File | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
@@ -38,19 +45,17 @@ export default function CreateProperty() {
     setError('');
 
     try {
-      if (USE_BLOCKCHAIN) {
+      if (USE_BLOCKCHAIN && publicKey) {
         // BLOCKCHAIN MODE: Create property on-chain
         console.log('Creating property on blockchain:', formData);
 
-        // Uncomment when ready to use blockchain:
-        /*
         const result = await createProperty({
           name: formData.name,
           location: formData.location,
           totalValue: Number(formData.totalValue),
           totalShares: Number(formData.totalShares),
           rentPerMonth: Number(formData.rentPerMonth),
-          metadataUri: formData.images || '', // Should be IPFS/Arweave URI in production
+          metadataUri: '', // Will be IPFS/Arweave URI in production
         });
 
         console.log('Property created on-chain!', result);
@@ -59,19 +64,40 @@ export default function CreateProperty() {
         const tokenizeResult = await tokenizeProperty(formData.name);
         console.log('Property tokenized!', tokenizeResult);
 
-        alert(`Property created successfully!\n\nProperty Address: ${result.propertyAddress}\nToken Mint: ${tokenizeResult.mintAddress}\n\nTransaction: ${result.signature}`);
-        */
+        // Upload property images as documents
+        if (uploadedImages.length > 0) {
+          for (const image of uploadedImages) {
+            await uploadDocument(result.propertyAddress, 'other', image.name, image);
+          }
+        }
 
-        alert('Blockchain integration ready! Uncomment the code in handleSubmit to enable.');
+        // Upload 3D model as document
+        if (uploaded3DModel) {
+          await uploadDocument(result.propertyAddress, 'other', uploaded3DModel.name, uploaded3DModel);
+        }
+
+        alert(`Property created successfully on Solana!\n\nProperty Address: ${result.propertyAddress}\nToken Mint: ${tokenizeResult.mintAddress}\n\nTransaction: ${result.signature}`);
 
       } else {
         // DEMO MODE: Just simulate the creation
         console.log('Creating property (demo mode):', formData);
 
-        // Simulate API call
+        // Simulate blockchain transaction
         await new Promise(resolve => setTimeout(resolve, 2000));
 
-        alert('Property created successfully! (Demo mode - not yet on blockchain)\n\nTo enable blockchain integration:\n1. Deploy smart contracts to Devnet\n2. Update program IDs in lib/solana/programs.ts\n3. Set USE_BLOCKCHAIN = true in this file');
+        // Store property data locally for demo
+        const demoProperty = {
+          id: `demo_${Date.now()}`,
+          ...formData,
+          owner: publicKey?.toBase58() || 'demo',
+          created: Date.now(),
+        };
+
+        const properties = JSON.parse(localStorage.getItem('demo_properties') || '[]');
+        properties.push(demoProperty);
+        localStorage.setItem('demo_properties', JSON.stringify(properties));
+
+        alert('Property created successfully! (Demo mode)\n\nConnect to Devnet and enable USE_BLOCKCHAIN for on-chain transactions.');
       }
 
       router.push('/properties');
@@ -92,13 +118,13 @@ export default function CreateProperty() {
 
   if (!connected) {
     return (
-      <div className="min-h-screen bg-gradient-to-b from-gray-900 to-gray-800 text-white">
+      <div className="min-h-screen  text-white">
         <Header />
         <main className="container mx-auto px-6 py-12">
-          <div className="bg-gray-800 p-12 rounded-xl border border-gray-700 text-center max-w-2xl mx-auto">
+          <div className="modern-card p-12 text-center max-w-2xl mx-auto">
             <div className="text-6xl mb-4">🔒</div>
             <h2 className="text-3xl font-bold mb-4">Connect Your Wallet</h2>
-            <p className="text-gray-400">You need to connect your wallet to list a property</p>
+            <p className="text-neutral-400">You need to connect your wallet to list a property</p>
           </div>
         </main>
       </div>
@@ -106,13 +132,14 @@ export default function CreateProperty() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-900 to-gray-800 text-white">
+    <div className="min-h-screen">
       <Header />
 
+      <PageTransition>
       <main className="container mx-auto px-6 py-12">
-        <div className="max-w-3xl mx-auto">
+        <div className="max-w-4xl mx-auto">
           <h1 className="text-4xl font-bold mb-2">List a Property</h1>
-          <p className="text-gray-400 mb-8">Tokenize your real estate on Solana</p>
+          <p className="text-neutral-400 mb-8">Tokenize your real estate on Solana</p>
 
           {error && (
             <div className="bg-red-500/20 border border-red-500 text-red-200 px-6 py-4 rounded-lg mb-6">
@@ -122,7 +149,7 @@ export default function CreateProperty() {
 
           <form onSubmit={handleSubmit} className="space-y-6">
             {/* Basic Information */}
-            <div className="bg-gray-800 p-8 rounded-xl border border-gray-700">
+            <div className="modern-card p-8">
               <h2 className="text-2xl font-bold mb-6">Basic Information</h2>
 
               <div className="space-y-4">
@@ -134,7 +161,7 @@ export default function CreateProperty() {
                     value={formData.name}
                     onChange={handleChange}
                     required
-                    className="w-full px-4 py-3 bg-gray-900 border border-gray-700 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                    className="w-full px-4 py-3 bg-gray-900 border border-neutral-800 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
                     placeholder="e.g., Luxury Apartment Paris 16th"
                   />
                 </div>
@@ -147,7 +174,7 @@ export default function CreateProperty() {
                     value={formData.location}
                     onChange={handleChange}
                     required
-                    className="w-full px-4 py-3 bg-gray-900 border border-gray-700 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                    className="w-full px-4 py-3 bg-gray-900 border border-neutral-800 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
                     placeholder="e.g., 75016 Paris, France"
                   />
                 </div>
@@ -160,7 +187,7 @@ export default function CreateProperty() {
                     onChange={handleChange}
                     required
                     rows={4}
-                    className="w-full px-4 py-3 bg-gray-900 border border-gray-700 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                    className="w-full px-4 py-3 bg-gray-900 border border-neutral-800 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
                     placeholder="Describe the property..."
                   />
                 </div>
@@ -168,7 +195,7 @@ export default function CreateProperty() {
             </div>
 
             {/* Financial Details */}
-            <div className="bg-gray-800 p-8 rounded-xl border border-gray-700">
+            <div className="modern-card p-8">
               <h2 className="text-2xl font-bold mb-6">Financial Details</h2>
 
               <div className="grid md:grid-cols-2 gap-4">
@@ -181,7 +208,7 @@ export default function CreateProperty() {
                     onChange={handleChange}
                     required
                     min="0"
-                    className="w-full px-4 py-3 bg-gray-900 border border-gray-700 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                    className="w-full px-4 py-3 bg-gray-900 border border-neutral-800 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
                     placeholder="500000"
                   />
                 </div>
@@ -195,7 +222,7 @@ export default function CreateProperty() {
                     onChange={handleChange}
                     required
                     min="1"
-                    className="w-full px-4 py-3 bg-gray-900 border border-gray-700 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                    className="w-full px-4 py-3 bg-gray-900 border border-neutral-800 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
                     placeholder="1000"
                   />
                 </div>
@@ -209,14 +236,14 @@ export default function CreateProperty() {
                     onChange={handleChange}
                     required
                     min="0"
-                    className="w-full px-4 py-3 bg-gray-900 border border-gray-700 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                    className="w-full px-4 py-3 bg-gray-900 border border-neutral-800 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
                     placeholder="2500"
                   />
                 </div>
               </div>
 
               <div className="mt-4 p-4 bg-gray-900 rounded-lg">
-                <div className="text-sm text-gray-400 space-y-1">
+                <div className="text-sm text-neutral-400 space-y-1">
                   <p>Price per share: <span className="text-white font-semibold">
                     ${formData.totalValue && formData.totalShares
                       ? (Number(formData.totalValue) / Number(formData.totalShares)).toFixed(2)
@@ -232,7 +259,7 @@ export default function CreateProperty() {
             </div>
 
             {/* Property Details */}
-            <div className="bg-gray-800 p-8 rounded-xl border border-gray-700">
+            <div className="modern-card p-8">
               <h2 className="text-2xl font-bold mb-6">Property Details</h2>
 
               <div className="grid md:grid-cols-2 gap-4">
@@ -242,7 +269,7 @@ export default function CreateProperty() {
                     name="propertyType"
                     value={formData.propertyType}
                     onChange={handleChange}
-                    className="w-full px-4 py-3 bg-gray-900 border border-gray-700 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                    className="w-full px-4 py-3 bg-gray-900 border border-neutral-800 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
                   >
                     <option value="apartment">Apartment</option>
                     <option value="house">House</option>
@@ -259,7 +286,7 @@ export default function CreateProperty() {
                     value={formData.bedrooms}
                     onChange={handleChange}
                     min="0"
-                    className="w-full px-4 py-3 bg-gray-900 border border-gray-700 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                    className="w-full px-4 py-3 bg-gray-900 border border-neutral-800 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
                     placeholder="3"
                   />
                 </div>
@@ -273,7 +300,7 @@ export default function CreateProperty() {
                     onChange={handleChange}
                     min="0"
                     step="0.5"
-                    className="w-full px-4 py-3 bg-gray-900 border border-gray-700 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                    className="w-full px-4 py-3 bg-gray-900 border border-neutral-800 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
                     placeholder="2"
                   />
                 </div>
@@ -286,7 +313,7 @@ export default function CreateProperty() {
                     value={formData.squareFeet}
                     onChange={handleChange}
                     min="0"
-                    className="w-full px-4 py-3 bg-gray-900 border border-gray-700 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                    className="w-full px-4 py-3 bg-gray-900 border border-neutral-800 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
                     placeholder="1200"
                   />
                 </div>
@@ -300,23 +327,53 @@ export default function CreateProperty() {
                     onChange={handleChange}
                     min="1800"
                     max={new Date().getFullYear()}
-                    className="w-full px-4 py-3 bg-gray-900 border border-gray-700 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                    className="w-full px-4 py-3 bg-gray-900 border border-neutral-800 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
                     placeholder="2020"
                   />
                 </div>
 
-                <div>
-                  <label className="block text-sm font-medium mb-2">Image URL</label>
-                  <input
-                    type="text"
-                    name="images"
-                    value={formData.images}
-                    onChange={handleChange}
-                    className="w-full px-4 py-3 bg-gray-900 border border-gray-700 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
-                    placeholder="https://..."
-                  />
-                </div>
               </div>
+            </div>
+
+            {/* Media Upload Section */}
+            <div className="modern-card p-6 space-y-6">
+              <div>
+                <h3 className="text-xl font-semibold mb-2">Property Media</h3>
+                <p className="text-sm text-neutral-400">Upload photos and 3D models of your property</p>
+              </div>
+
+              {/* Image Upload */}
+              <div>
+                <h4 className="text-lg font-semibold mb-4">📸 Property Photos</h4>
+                <ImageUploader
+                  onUpload={(files) => setUploadedImages(files)}
+                  maxFiles={10}
+                  maxSize={5}
+                />
+              </div>
+
+              {/* 3D Model Upload */}
+              <div>
+                <h4 className="text-lg font-semibold mb-4">🎨 3D Model (Optional)</h4>
+                <Model3DUploader
+                  onUpload={(file) => setUploaded3DModel(file)}
+                  maxSize={50}
+                />
+              </div>
+
+              {/* 3D Model Preview */}
+              {uploaded3DModel && (
+                <div>
+                  <h4 className="text-lg font-semibold mb-4">🔍 3D Model Preview</h4>
+                  <Property3DViewer
+                    propertyName={formData.name || 'Property Preview'}
+                    modelFile={uploaded3DModel}
+                  />
+                  <p className="text-xs text-neutral-500 mt-2 text-center">
+                    Interactive preview - Use mouse to rotate and zoom
+                  </p>
+                </div>
+              )}
             </div>
 
             {/* Submit */}
@@ -331,7 +388,7 @@ export default function CreateProperty() {
               <button
                 type="submit"
                 disabled={loading}
-                className="flex-1 px-8 py-4 bg-purple-600 hover:bg-purple-700 disabled:bg-gray-600 disabled:cursor-not-allowed rounded-lg font-semibold transition-colors"
+                className="flex-1 px-8 py-4 modern-button disabled:bg-gray-600 disabled:cursor-not-allowed rounded-lg font-semibold transition-colors"
               >
                 {loading ? 'Creating Property...' : 'Create Property'}
               </button>
@@ -339,6 +396,7 @@ export default function CreateProperty() {
           </form>
         </div>
       </main>
+      </PageTransition>
     </div>
   );
 }

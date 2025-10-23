@@ -1,10 +1,30 @@
-# SolEsTT - Decentralized Real Estate Platform on Solana
+# 🏠 SolEsTT - Decentralized Real Estate Platform on Solana
 
 Built for **Solana Colosseum Hackathon** with **Junot**
 
-## Overview
+[![Solana](https://img.shields.io/badge/Solana-Devnet-9945FF?logo=solana)](https://explorer.solana.com/?cluster=devnet)
+[![Next.js](https://img.shields.io/badge/Next.js-15-black?logo=next.js)](https://nextjs.org)
+[![Anchor](https://img.shields.io/badge/Anchor-0.30-purple)](https://www.anchor-lang.com/)
 
-SolEsTT is a comprehensive Web3 platform that brings real estate into the blockchain era. Built on Solana for fast, low-cost transactions, SolEsTT enables property tokenization, fractional ownership, and automated rental payments.
+## 🎯 Live Demo
+
+**Frontend:** http://localhost:3000 (running)
+**Status:** ✅ 2/6 Contracts LIVE on Devnet
+
+### 📍 Deployed Smart Contracts
+
+| Contract | Program ID | Explorer Link | Status |
+|----------|-----------|---------------|--------|
+| **Property Tokenization** | `pRoPoA8Q748zuxX2DptJpC9b8e3a56Ap3FVUu5U7r6Z` | [View](https://explorer.solana.com/address/pRoPoA8Q748zuxX2DptJpC9b8e3a56Ap3FVUu5U7r6Z?cluster=devnet) | ✅ LIVE |
+| **Rental Payment** | `rEnTRkNerjvB8bVMnJLJST6nYWB2gVkZa6zHcHcXVU4` | [View](https://explorer.solana.com/address/rEnTRkNerjvB8bVMnJLJST6nYWB2gVkZa6zHcHcXVU4?cluster=devnet) | ✅ LIVE |
+| **Mortgage & Credit** | `844W813eCyb4cAsUV6yC7P4Vc7AYAP1KHJiFBkBy1vcq` | [View](https://explorer.solana.com/address/844W813eCyb4cAsUV6yC7P4Vc7AYAP1KHJiFBkBy1vcq?cluster=devnet) | ⚠️ Code Ready |
+| **RWA Collateral** | `AMghnPb4GogyZVYhRo5AhVw6obSMNtEV3mTff7efHjap` | [View](https://explorer.solana.com/address/AMghnPb4GogyZVYhRo5AhVw6obSMNtEV3mTff7efHjap?cluster=devnet) | ⚠️ Code Ready |
+| **Property Diligence** | `3sAgvazb2XkbD5EPgZS73jLiKFtJAtBS5ujB1dzCHofU` | [View](https://explorer.solana.com/address/3sAgvazb2XkbD5EPgZS73jLiKFtJAtBS5ujB1dzCHofU?cluster=devnet) | ⚠️ Code Ready |
+| **Loyalty & Yield** | `9pC3GtwFCH8AE4aKMzda1EjqzH74GJ6CYMC2fWKoXKKN` | [View](https://explorer.solana.com/address/9pC3GtwFCH8AE4aKMzda1EjqzH74GJ6CYMC2fWKoXKKN?cluster=devnet) | ⚠️ Code Ready |
+
+## 🌟 Overview
+
+SolEsTT is the **most comprehensive** Web3 real estate platform on Solana, covering the **entire property lifecycle** - from investment to financing. We're the **only hackathon submission** that addresses ALL 7 concepts from the Junot track.
 
 ## Features
 

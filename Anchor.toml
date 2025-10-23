@@ -5,19 +5,27 @@ resolution = true
 skip-lint = false
 
 [programs.devnet]
-property_tokenization = "11111111111111111111111111111111"
-rental_payment = "11111111111111111111111111111111"
+property_tokenization = "pRoPoA8Q748zuxX2DptJpC9b8e3a56Ap3FVUu5U7r6Z"
+rental_payment = "rEnTRkNerjvB8bVMnJLJST6nYWB2gVkZa6zHcHcXVU4"
+mortgage_credit = "844W813eCyb4cAsUV6yC7P4Vc7AYAP1KHJiFBkBy1vcq"
+rwa_collateral = "AMghnPb4GogyZVYhRo5AhVw6obSMNtEV3mTff7efHjap"
+property_diligence = "3sAgvazb2XkbD5EPgZS73jLiKFtJAtBS5ujB1dzCHofU"
+loyalty_rewards = "9pC3GtwFCH8AE4aKMzda1EjqzH74GJ6CYMC2fWKoXKKN"
 
 [programs.localnet]
-property_tokenization = "11111111111111111111111111111111"
-rental_payment = "11111111111111111111111111111111"
+property_tokenization = "pRoPoA8Q748zuxX2DptJpC9b8e3a56Ap3FVUu5U7r6Z"
+rental_payment = "rEnTRkNerjvB8bVMnJLJST6nYWB2gVkZa6zHcHcXVU4"
+mortgage_credit = "844W813eCyb4cAsUV6yC7P4Vc7AYAP1KHJiFBkBy1vcq"
+rwa_collateral = "AMghnPb4GogyZVYhRo5AhVw6obSMNtEV3mTff7efHjap"
+property_diligence = "3sAgvazb2XkbD5EPgZS73jLiKFtJAtBS5ujB1dzCHofU"
+loyalty_rewards = "9pC3GtwFCH8AE4aKMzda1EjqzH74GJ6CYMC2fWKoXKKN"
 
 [registry]
 url = "https://api.apr.dev"
 
 [provider]
 cluster = "Devnet"
-wallet = "~/.config/solana/id.json"
+wallet = "C:\\Users\\Slashy\\.config\\solana\\deployer.json"
 
 [scripts]
 test = "yarn run ts-mocha -p ./tsconfig.json -t 1000000 anchor/tests/**/*.ts"

@@ -2,6 +2,10 @@
 members = [
     "anchor/programs/property_tokenization",
     "anchor/programs/rental_payment",
+    "anchor/programs/mortgage_credit",
+    "anchor/programs/rwa_collateral",
+    "anchor/programs/property_diligence",
+    "anchor/programs/loyalty_rewards",
 ]
 
 [profile.release]

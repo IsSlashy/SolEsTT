@@ -10,9 +10,11 @@ export default function Marketplace() {
   const [sortBy, setSortBy] = useState<'price' | 'roi' | 'funded'>('roi');
 
   // Generate mock listings for secondary market
-  const mockListings = properties.flatMap(property => {
+  let mockListings = properties.flatMap(property => {
     const pricePerShare = property.totalValue / property.totalShares;
     const soldShares = property.totalShares - property.availableShares;
+    const roi = calculateROI(property);
+    const fundedPercent = ((property.totalShares - property.availableShares) / property.totalShares) * 100;
 
     // Create 2-3 listings per property
     return [
@@ -26,6 +28,8 @@ export default function Marketplace() {
         totalPrice: pricePerShare * 1.05 * Math.floor(soldShares * 0.1),
         change: '+5%',
         trending: 'up' as const,
+        roi,
+        fundedPercent,
       },
       {
         id: `${property.id}-2`,
@@ -37,66 +41,76 @@ export default function Marketplace() {
         totalPrice: pricePerShare * 0.98 * Math.floor(soldShares * 0.05),
         change: '-2%',
         trending: 'down' as const,
+        roi,
+        fundedPercent,
       },
     ];
   });
 
+  // Sort listings based on selected filter
+  mockListings = [...mockListings].sort((a, b) => {
+    if (sortBy === 'roi') return b.roi - a.roi;
+    if (sortBy === 'price') return a.pricePerShare - b.pricePerShare;
+    if (sortBy === 'funded') return b.fundedPercent - a.fundedPercent;
+    return 0;
+  });
+
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-900 to-gray-800 text-white">
+    <div className="min-h-screen">
       <Header />
 
       <main className="container mx-auto px-6 py-12">
         <div className="mb-8">
           <h1 className="text-4xl font-bold mb-2">Marketplace</h1>
-          <p className="text-gray-400">Trade property shares on the secondary market</p>
+          <p className="text-neutral-400 text-sm">Trade property shares on the secondary market</p>
         </div>
 
         {/* Market Stats */}
-        <div className="grid md:grid-cols-4 gap-6 mb-8">
-          <div className="bg-gray-800 p-6 rounded-xl border border-gray-700">
-            <div className="text-gray-400 text-sm mb-2">24h Volume</div>
+        <div className="grid md:grid-cols-4 gap-4 mb-8">
+          <div className="modern-card p-6">
+            <div className="text-neutral-500 text-xs mb-2">24h Volume</div>
             <div className="text-2xl font-bold">$127,450</div>
-            <div className="text-green-400 text-sm mt-1">+12.5%</div>
+            <div className="text-green-400 text-xs mt-1">+12.5%</div>
           </div>
-          <div className="bg-gray-800 p-6 rounded-xl border border-gray-700">
-            <div className="text-gray-400 text-sm mb-2">Active Listings</div>
+          <div className="modern-card p-6">
+            <div className="text-neutral-500 text-xs mb-2">Active Listings</div>
             <div className="text-2xl font-bold">{mockListings.length}</div>
-            <div className="text-gray-400 text-sm mt-1">Across {properties.length} properties</div>
+            <div className="text-neutral-500 text-xs mt-1">Across {properties.length} properties</div>
           </div>
-          <div className="bg-gray-800 p-6 rounded-xl border border-gray-700">
-            <div className="text-gray-400 text-sm mb-2">Avg. Price Change</div>
+          <div className="modern-card p-6">
+            <div className="text-neutral-500 text-xs mb-2">Avg. Price Change</div>
             <div className="text-2xl font-bold">+3.2%</div>
-            <div className="text-green-400 text-sm mt-1">Last 7 days</div>
+            <div className="text-green-400 text-xs mt-1">Last 7 days</div>
           </div>
-          <div className="bg-gray-800 p-6 rounded-xl border border-gray-700">
-            <div className="text-gray-400 text-sm mb-2">Total Trades</div>
+          <div className="modern-card p-6">
+            <div className="text-neutral-500 text-xs mb-2">Total Trades</div>
             <div className="text-2xl font-bold">1,234</div>
-            <div className="text-purple-400 text-sm mt-1">This month</div>
+            <div className="text-neutral-400 text-xs mt-1">This month</div>
           </div>
         </div>
 
         {/* Filters */}
-        <div className="flex gap-4 mb-6">
+        <div className="flex gap-3 mb-6">
           <button
             onClick={() => setSortBy('roi')}
-            className={`px-4 py-2 rounded-lg transition-colors ${
-              sortBy === 'roi' ? 'bg-purple-600' : 'bg-gray-800 hover:bg-gray-700'
+            className={`px-4 py-2 rounded-lg text-sm transition-colors ${
+              sortBy === 'roi' ? 'bg-white text-black' : 'bg-neutral-900 text-neutral-400 hover:bg-neutral-800 border border-neutral-800'
             }`}
           >
             Best ROI
           </button>
           <button
             onClick={() => setSortBy('price')}
-            className={`px-4 py-2 rounded-lg transition-colors ${
-              sortBy === 'price' ? 'bg-purple-600' : 'bg-gray-800 hover:bg-gray-700'
+            className={`px-4 py-2 rounded-lg text-sm transition-colors ${
+              sortBy === 'price' ? 'bg-white text-black' : 'bg-neutral-900 text-neutral-400 hover:bg-neutral-800 border border-neutral-800'
             }`}
           >
             Lowest Price
           </button>
           <button
             onClick={() => setSortBy('funded')}
-            className={`px-4 py-2 rounded-lg transition-colors ${
-              sortBy === 'funded' ? 'bg-purple-600' : 'bg-gray-800 hover:bg-gray-700'
+            className={`px-4 py-2 rounded-lg text-sm transition-colors ${
+              sortBy === 'funded' ? 'bg-white text-black' : 'bg-neutral-900 text-neutral-400 hover:bg-neutral-800 border border-neutral-800'
             }`}
           >
             Most Funded
@@ -112,12 +126,12 @@ export default function Marketplace() {
             return (
               <div
                 key={listing.id}
-                className="bg-gray-800 p-6 rounded-xl border border-gray-700 hover:border-purple-500 transition-all"
+                className="modern-card p-6"
               >
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-6 flex-1">
                     {/* Property Info */}
-                    <div className="w-24 h-24 bg-gray-700 rounded-lg overflow-hidden flex-shrink-0">
+                    <div className="w-20 h-20 bg-neutral-900 rounded-lg overflow-hidden flex-shrink-0">
                       {property.images[0] ? (
                         <img
                           src={property.images[0]}
@@ -125,7 +139,7 @@ export default function Marketplace() {
                           className="w-full h-full object-cover"
                         />
                       ) : (
-                        <div className="w-full h-full flex items-center justify-center text-4xl">
+                        <div className="w-full h-full flex items-center justify-center text-3xl">
                           🏠
                         </div>
                       )}
@@ -134,21 +148,21 @@ export default function Marketplace() {
                     <div className="flex-1">
                       <Link
                         href={`/properties/${property.id}`}
-                        className="text-xl font-bold hover:text-purple-400 transition-colors"
+                        className="text-lg font-semibold hover:text-neutral-300 transition-colors"
                       >
                         {listing.propertyName}
                       </Link>
-                      <div className="text-sm text-gray-400 mt-1">
+                      <div className="text-xs text-neutral-500 mt-1">
                         Seller: {listing.seller}
                       </div>
                       <div className="flex gap-4 mt-2">
-                        <div className="text-sm">
-                          <span className="text-gray-400">ROI:</span>{' '}
-                          <span className="font-semibold text-purple-400">{calculateROI(property)}%</span>
+                        <div className="text-xs">
+                          <span className="text-neutral-500">ROI:</span>{' '}
+                          <span className="font-medium">{calculateROI(property)}%</span>
                         </div>
-                        <div className="text-sm">
-                          <span className="text-gray-400">Location:</span>{' '}
-                          <span className="font-semibold">{property.location}</span>
+                        <div className="text-xs">
+                          <span className="text-neutral-500">Location:</span>{' '}
+                          <span className="font-medium">{property.location}</span>
                         </div>
                       </div>
                     </div>
@@ -157,14 +171,14 @@ export default function Marketplace() {
                   {/* Listing Details */}
                   <div className="flex items-center gap-8">
                     <div className="text-right">
-                      <div className="text-gray-400 text-sm">Shares Available</div>
-                      <div className="text-2xl font-bold">{listing.shares.toLocaleString()}</div>
+                      <div className="text-neutral-500 text-xs">Shares Available</div>
+                      <div className="text-xl font-bold">{listing.shares.toLocaleString()}</div>
                     </div>
 
                     <div className="text-right">
-                      <div className="text-gray-400 text-sm">Price per Share</div>
-                      <div className="text-2xl font-bold">{formatPrice(listing.pricePerShare)}</div>
-                      <div className={`text-sm mt-1 ${
+                      <div className="text-neutral-500 text-xs">Price per Share</div>
+                      <div className="text-xl font-bold">{formatPrice(listing.pricePerShare)}</div>
+                      <div className={`text-xs mt-1 ${
                         listing.trending === 'up' ? 'text-green-400' : 'text-red-400'
                       }`}>
                         {listing.change}
@@ -172,11 +186,11 @@ export default function Marketplace() {
                     </div>
 
                     <div className="text-right">
-                      <div className="text-gray-400 text-sm">Total Value</div>
-                      <div className="text-2xl font-bold">{formatPrice(listing.totalPrice)}</div>
+                      <div className="text-neutral-500 text-xs">Total Value</div>
+                      <div className="text-xl font-bold">{formatPrice(listing.totalPrice)}</div>
                     </div>
 
-                    <button className="px-6 py-3 bg-purple-600 hover:bg-purple-700 rounded-lg font-semibold transition-colors whitespace-nowrap">
+                    <button className="modern-button whitespace-nowrap">
                       Buy Now
                     </button>
                   </div>
@@ -187,8 +201,8 @@ export default function Marketplace() {
         </div>
 
         {/* Demo Notice */}
-        <div className="mt-8 p-6 bg-purple-900/30 border border-purple-500/30 rounded-xl text-center">
-          <p className="text-purple-300">
+        <div className="mt-8 p-6 modern-card text-center">
+          <p className="text-neutral-400 text-sm">
             📊 Demo Mode - Marketplace data is simulated. Real trading will be available once blockchain integration is complete.
           </p>
         </div>
