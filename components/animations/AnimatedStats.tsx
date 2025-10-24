@@ -35,13 +35,13 @@ function StatItem({ label, value, prefix = '', suffix = '', decimals = 0, delay 
     >
       {/* Animated background gradient */}
       <motion.div
-        className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"
+        className="absolute inset-0 bg-gradient-to-br from-junot-gold/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"
         initial={false}
       />
 
       <div className="relative z-10">
-        <p className="text-neutral-500 text-xs mb-2">{label}</p>
-        <p className="text-3xl font-bold">
+        <p className="text-junot-text-muted text-xs mb-2 uppercase tracking-wider">{label}</p>
+        <p className="text-3xl font-bold text-junot-text-dark">
           {shouldAnimate ? (
             <AnimatedCounter
               value={value}
@@ -58,7 +58,7 @@ function StatItem({ label, value, prefix = '', suffix = '', decimals = 0, delay 
 
       {/* Progress bar animation */}
       <motion.div
-        className="absolute bottom-0 left-0 h-0.5 bg-white"
+        className="absolute bottom-0 left-0 h-1 bg-gradient-to-r from-junot-gold to-junot-gold-light"
         initial={{ width: '0%' }}
         animate={isInView ? { width: '100%' } : {}}
         transition={{ duration: 1, delay: delay + 0.5 }}

@@ -63,14 +63,14 @@ export default function Rentals() {
 
   if (!connected) {
     return (
-      <div className="min-h-screen  text-white">
+      <div className="min-h-screen">
         <Header />
         <main className="container mx-auto px-6 py-12">
-          <h1 className="text-4xl font-bold mb-8">Rental Payments</h1>
+          <h1 className="text-4xl font-bold mb-8 text-junot-text-dark">Paiements Locatifs</h1>
           <div className="modern-card p-12 text-center">
             <div className="text-6xl mb-4">🔒</div>
-            <h3 className="text-2xl font-bold mb-4">Connect Your Wallet</h3>
-            <p className="text-neutral-400">Connect your wallet to manage rental payments</p>
+            <h3 className="text-2xl font-bold mb-4 text-junot-text-dark">Connectez Votre Wallet</h3>
+            <p className="text-junot-text-muted">Connectez votre wallet pour gérer les paiements locatifs</p>
           </div>
         </main>
       </div>
@@ -83,31 +83,31 @@ export default function Rentals() {
   };
 
   return (
-    <div className="min-h-screen  text-white">
+    <div className="min-h-screen">
       <Header />
 
       <main className="container mx-auto px-6 py-12">
         <div className="mb-8">
-          <h1 className="text-4xl font-bold mb-2">Rental Payments</h1>
-          <p className="text-neutral-400">Automated rent collection powered by USDC on Solana</p>
+          <h1 className="text-4xl font-bold mb-2 text-junot-text-dark">Paiements Locatifs</h1>
+          <p className="text-junot-text-muted">Collection automatique des loyers via USDC sur Solana</p>
         </div>
 
         {/* Stats */}
         <div className="grid md:grid-cols-3 gap-6 mb-8">
           <div className="modern-card p-6">
-            <div className="text-neutral-400 text-sm mb-2">Active as Tenant</div>
-            <div className="text-3xl font-bold">{mockTenantAgreements.length}</div>
-            <div className="text-sm text-neutral-400 mt-1">rental agreements</div>
+            <div className="text-junot-text-muted text-sm mb-2 uppercase tracking-wider">En Tant Que Locataire</div>
+            <div className="text-3xl font-bold text-junot-text-dark">{mockTenantAgreements.length}</div>
+            <div className="text-sm text-junot-text-muted mt-1">contrats de location</div>
           </div>
           <div className="modern-card p-6">
-            <div className="text-neutral-400 text-sm mb-2">Active as Landlord</div>
-            <div className="text-3xl font-bold">{mockLandlordAgreements.length}</div>
-            <div className="text-sm text-neutral-400 mt-1">rental agreements</div>
+            <div className="text-junot-text-muted text-sm mb-2 uppercase tracking-wider">En Tant Que Propriétaire</div>
+            <div className="text-3xl font-bold text-junot-text-dark">{mockLandlordAgreements.length}</div>
+            <div className="text-sm text-junot-text-muted mt-1">contrats de location</div>
           </div>
           <div className="modern-card p-6">
-            <div className="text-neutral-400 text-sm mb-2">Total Collected</div>
-            <div className="text-3xl font-bold text-green-400">{formatPrice(mockIncomeHistory.reduce((sum, i) => sum + i.amount, 0))}</div>
-            <div className="text-sm text-neutral-400 mt-1">lifetime earnings</div>
+            <div className="text-junot-text-muted text-sm mb-2 uppercase tracking-wider">Total Collecté</div>
+            <div className="text-3xl font-bold text-junot-gold">{formatPrice(mockIncomeHistory.reduce((sum, i) => sum + i.amount, 0))}</div>
+            <div className="text-sm text-junot-text-muted mt-1">revenus totaux</div>
           </div>
         </div>
 
@@ -115,19 +115,19 @@ export default function Rentals() {
         <div className="flex gap-4 mb-6">
           <button
             onClick={() => setView('tenant')}
-            className={`px-6 py-3 rounded-lg font-semibold transition-colors ${
-              view === 'tenant' ? 'bg-white text-black' : 'bg-neutral-900 text-neutral-400 hover:bg-neutral-800 border border-neutral-800'
+            className={`px-6 py-3 rounded-lg font-semibold transition-all ${
+              view === 'tenant' ? 'bg-junot-gold text-junot-text-dark shadow-md' : 'bg-white/60 text-junot-text hover:bg-white border border-junot-border'
             }`}
           >
-            As Tenant ({mockTenantAgreements.length})
+            Locataire ({mockTenantAgreements.length})
           </button>
           <button
             onClick={() => setView('landlord')}
-            className={`px-6 py-3 rounded-lg font-semibold transition-colors ${
-              view === 'landlord' ? 'bg-white text-black' : 'bg-neutral-900 text-neutral-400 hover:bg-neutral-800 border border-neutral-800'
+            className={`px-6 py-3 rounded-lg font-semibold transition-all ${
+              view === 'landlord' ? 'bg-junot-gold text-junot-text-dark shadow-md' : 'bg-white/60 text-junot-text hover:bg-white border border-junot-border'
             }`}
           >
-            As Landlord ({mockLandlordAgreements.length})
+            Propriétaire ({mockLandlordAgreements.length})
           </button>
         </div>
 
@@ -142,7 +142,7 @@ export default function Rentals() {
                 <div key={agreement.id} className="modern-card p-6">
                   <div className="flex items-center justify-between mb-6">
                     <div className="flex items-center gap-4">
-                      <div className="w-20 h-20 bg-gray-700 rounded-lg overflow-hidden">
+                      <div className="w-20 h-20 bg-white/60 border border-junot-border rounded-lg overflow-hidden">
                         {agreement.property.images[0] ? (
                           <img
                             src={agreement.property.images[0]}
@@ -156,14 +156,14 @@ export default function Rentals() {
                         )}
                       </div>
                       <div>
-                        <h3 className="text-xl font-bold">{agreement.property.name}</h3>
-                        <p className="text-neutral-400 text-sm">📍 {agreement.property.location}</p>
-                        <p className="text-neutral-400 text-sm mt-1">Landlord: {agreement.landlord}</p>
+                        <h3 className="text-xl font-bold text-junot-text-dark">{agreement.property.name}</h3>
+                        <p className="text-junot-text-muted text-sm">📍 {agreement.property.location}</p>
+                        <p className="text-junot-text-muted text-sm mt-1">Propriétaire: {agreement.landlord}</p>
                       </div>
                     </div>
 
                     <div className={`px-4 py-2 rounded-lg ${
-                      agreement.status === 'active' ? 'bg-green-500/20 text-green-400' : 'bg-gray-700 text-neutral-400'
+                      agreement.status === 'active' ? 'bg-junot-gold/20 text-junot-gold border border-junot-gold/40' : 'bg-junot-cream-dark text-junot-text-muted'
                     }`}>
                       {agreement.status.toUpperCase()}
                     </div>
@@ -171,24 +171,24 @@ export default function Rentals() {
 
                   <div className="grid md:grid-cols-4 gap-6 mb-6">
                     <div>
-                      <div className="text-neutral-400 text-sm mb-1">Monthly Rent</div>
-                      <div className="text-2xl font-bold">{formatPrice(agreement.rentAmount)}</div>
+                      <div className="text-junot-text-muted text-sm mb-1">Loyer Mensuel</div>
+                      <div className="text-2xl font-bold text-junot-text-dark">{formatPrice(agreement.rentAmount)}</div>
                     </div>
                     <div>
-                      <div className="text-neutral-400 text-sm mb-1">Next Payment Due</div>
-                      <div className={`text-2xl font-bold ${isOverdue ? 'text-red-400' : 'text-white'}`}>
-                        {isOverdue ? 'OVERDUE' : `${daysUntilDue} days`}
+                      <div className="text-junot-text-muted text-sm mb-1">Prochain Paiement</div>
+                      <div className={`text-2xl font-bold ${isOverdue ? 'text-red-600' : 'text-junot-text-dark'}`}>
+                        {isOverdue ? 'EN RETARD' : `${daysUntilDue} jours`}
                       </div>
                     </div>
                     <div>
-                      <div className="text-neutral-400 text-sm mb-1">Last Payment</div>
-                      <div className="text-lg font-semibold">
-                        {new Date(agreement.lastPayment).toLocaleDateString()}
+                      <div className="text-junot-text-muted text-sm mb-1">Dernier Paiement</div>
+                      <div className="text-lg font-semibold text-junot-text-dark">
+                        {new Date(agreement.lastPayment).toLocaleDateString('fr-FR')}
                       </div>
                     </div>
                     <div>
-                      <div className="text-neutral-400 text-sm mb-1">Total Payments</div>
-                      <div className="text-lg font-semibold">{agreement.totalPayments}</div>
+                      <div className="text-junot-text-muted text-sm mb-1">Total Paiements</div>
+                      <div className="text-lg font-semibold text-junot-text-dark">{agreement.totalPayments}</div>
                     </div>
                   </div>
 
@@ -197,19 +197,19 @@ export default function Rentals() {
                       disabled={isOverdue ? false : daysUntilDue > 5}
                       className={`flex-1 py-3 rounded-lg font-semibold transition-colors ${
                         isOverdue
-                          ? 'bg-red-600 hover:bg-red-700'
+                          ? 'bg-red-600 hover:bg-red-700 text-junot-text-dark'
                           : daysUntilDue <= 5
                           ? 'modern-button'
-                          : 'bg-gray-700 cursor-not-allowed'
+                          : 'bg-junot-cream-dark text-junot-text-muted cursor-not-allowed border border-junot-border'
                       }`}
                     >
-                      {isOverdue ? '⚠️ Pay Now (OVERDUE)' : daysUntilDue <= 5 ? 'Pay Rent with USDC' : `Payment due in ${daysUntilDue} days`}
+                      {isOverdue ? '⚠️ Payer Maintenant (EN RETARD)' : daysUntilDue <= 5 ? 'Payer le Loyer en USDC' : `Paiement dû dans ${daysUntilDue} jours`}
                     </button>
                     <button
                       onClick={() => setSelectedAgreement({ ...agreement, viewType: 'tenant' })}
-                      className="px-6 py-3 bg-gray-700 hover:bg-gray-600 rounded-lg font-semibold transition-colors"
+                      className="px-6 py-3 bg-white/60 hover:bg-white text-junot-text-dark border border-junot-border rounded-lg font-semibold transition-colors"
                     >
-                      View Details
+                      Voir Détails
                     </button>
                   </div>
                 </div>
@@ -239,7 +239,7 @@ export default function Rentals() {
                   <div key={agreement.id} className="modern-card p-6 mb-4">
                     <div className="flex items-center justify-between mb-6">
                       <div className="flex items-center gap-4">
-                        <div className="w-20 h-20 bg-gray-700 rounded-lg overflow-hidden">
+                        <div className="w-20 h-20 bg-white/60 border border-junot-border rounded-lg overflow-hidden">
                           {agreement.property.images[0] ? (
                             <img
                               src={agreement.property.images[0]}
@@ -289,7 +289,7 @@ export default function Rentals() {
 
                     <button
                       onClick={() => setSelectedAgreement({ ...agreement, viewType: 'landlord' })}
-                      className="px-6 py-3 bg-gray-700 hover:bg-gray-600 rounded-lg font-semibold transition-colors"
+                      className="px-6 py-3 bg-white/60 border border-junot-border hover:bg-white/80 rounded-lg font-semibold transition-colors"
                     >
                       View Details
                     </button>
@@ -303,13 +303,13 @@ export default function Rentals() {
               <h2 className="text-2xl font-bold mb-4">Income History</h2>
               <div className="modern-card overflow-hidden">
                 <table className="w-full">
-                  <thead className="bg-gray-900">
+                  <thead className="bg-junot-gold/10">
                     <tr>
-                      <th className="text-left p-4 font-semibold">Property</th>
-                      <th className="text-left p-4 font-semibold">Tenant</th>
-                      <th className="text-left p-4 font-semibold">Amount</th>
-                      <th className="text-left p-4 font-semibold">Date</th>
-                      <th className="text-left p-4 font-semibold">Status</th>
+                      <th className="text-left p-4 font-semibold text-junot-text-dark">Property</th>
+                      <th className="text-left p-4 font-semibold text-junot-text-dark">Tenant</th>
+                      <th className="text-left p-4 font-semibold text-junot-text-dark">Amount</th>
+                      <th className="text-left p-4 font-semibold text-junot-text-dark">Date</th>
+                      <th className="text-left p-4 font-semibold text-junot-text-dark">Status</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -337,14 +337,14 @@ export default function Rentals() {
 
         {/* Details Modal */}
         {selectedAgreement && (
-          <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50 p-6" onClick={() => setSelectedAgreement(null)}>
-            <div className="bg-gray-800 rounded-2xl border border-neutral-800 max-w-3xl w-full max-h-[90vh] overflow-y-auto" onClick={(e) => e.stopPropagation()}>
+          <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-6" onClick={() => setSelectedAgreement(null)}>
+            <div className="bg-junot-cream-light/95 backdrop-blur-xl rounded-2xl border border-junot-border shadow-2xl max-w-3xl w-full max-h-[90vh] overflow-y-auto" onClick={(e) => e.stopPropagation()}>
               {/* Modal Header */}
-              <div className="sticky top-0 bg-gray-800 border-b border-neutral-800 p-6 flex items-center justify-between">
-                <h2 className="text-2xl font-bold">Rental Agreement Details</h2>
+              <div className="sticky top-0 bg-junot-cream/90 backdrop-blur-xl border-b border-junot-border p-6 flex items-center justify-between">
+                <h2 className="text-2xl font-bold text-junot-text-dark">Détails du Contrat de Location</h2>
                 <button
                   onClick={() => setSelectedAgreement(null)}
-                  className="text-neutral-400 hover:text-white text-3xl leading-none"
+                  className="text-junot-text-muted hover:text-junot-text-dark text-3xl leading-none"
                 >
                   ×
                 </button>
@@ -352,8 +352,8 @@ export default function Rentals() {
 
               <div className="p-6 space-y-6">
                 {/* Property Info */}
-                <div className="flex items-center gap-4 p-4 bg-gray-900 rounded-xl">
-                  <div className="w-24 h-24 bg-gray-700 rounded-lg overflow-hidden flex-shrink-0">
+                <div className="flex items-center gap-4 p-4 bg-white/60 backdrop-blur-sm rounded-xl">
+                  <div className="w-24 h-24 bg-white/60 border border-junot-border rounded-lg overflow-hidden flex-shrink-0">
                     {selectedAgreement.property.images[0] ? (
                       <img
                         src={selectedAgreement.property.images[0]}
@@ -377,19 +377,19 @@ export default function Rentals() {
                 <div>
                   <h3 className="text-lg font-bold mb-3">Agreement Terms</h3>
                   <div className="grid grid-cols-2 gap-4">
-                    <div className="bg-gray-900 p-4 rounded-xl">
+                    <div className="bg-white/60 backdrop-blur-sm p-4 rounded-xl">
                       <div className="text-neutral-400 text-sm mb-1">Monthly Rent</div>
-                      <div className="text-2xl font-bold text-white">{formatPrice(selectedAgreement.rentAmount)}</div>
+                      <div className="text-2xl font-bold text-junot-text-dark">{formatPrice(selectedAgreement.rentAmount)}</div>
                     </div>
-                    <div className="bg-gray-900 p-4 rounded-xl">
+                    <div className="bg-white/60 backdrop-blur-sm p-4 rounded-xl">
                       <div className="text-neutral-400 text-sm mb-1">Payment Frequency</div>
                       <div className="text-2xl font-bold">{selectedAgreement.paymentFrequency} days</div>
                     </div>
-                    <div className="bg-gray-900 p-4 rounded-xl">
+                    <div className="bg-white/60 backdrop-blur-sm p-4 rounded-xl">
                       <div className="text-neutral-400 text-sm mb-1">Agreement Status</div>
                       <div className="text-lg font-bold text-green-400">{selectedAgreement.status.toUpperCase()}</div>
                     </div>
-                    <div className="bg-gray-900 p-4 rounded-xl">
+                    <div className="bg-white/60 backdrop-blur-sm p-4 rounded-xl">
                       <div className="text-neutral-400 text-sm mb-1">Total Payments Made</div>
                       <div className="text-2xl font-bold">{selectedAgreement.totalPayments}</div>
                     </div>
@@ -399,14 +399,14 @@ export default function Rentals() {
                 {/* Payment Schedule */}
                 <div>
                   <h3 className="text-lg font-bold mb-3">Payment Schedule</h3>
-                  <div className="bg-gray-900 p-4 rounded-xl space-y-3">
+                  <div className="bg-white/60 backdrop-blur-sm p-4 rounded-xl space-y-3">
                     <div className="flex justify-between items-center">
                       <span className="text-neutral-400">Last Payment:</span>
                       <span className="font-semibold">{new Date(selectedAgreement.lastPayment).toLocaleDateString()}</span>
                     </div>
                     <div className="flex justify-between items-center">
                       <span className="text-neutral-400">Next Payment Due:</span>
-                      <span className="font-semibold text-white">
+                      <span className="font-semibold text-junot-text-dark">
                         {new Date(selectedAgreement.nextDueDate).toLocaleDateString()}
                       </span>
                     </div>
@@ -422,14 +422,14 @@ export default function Rentals() {
                 {/* Payment History */}
                 <div>
                   <h3 className="text-lg font-bold mb-3">Payment History</h3>
-                  <div className="bg-gray-900 rounded-xl overflow-hidden">
+                  <div className="bg-white/60 backdrop-blur-sm rounded-xl overflow-hidden">
                     <table className="w-full">
-                      <thead className="bg-gray-950">
+                      <thead className="bg-junot-gold/10">
                         <tr>
-                          <th className="text-left p-3 text-sm font-semibold">Payment #</th>
-                          <th className="text-left p-3 text-sm font-semibold">Amount</th>
-                          <th className="text-left p-3 text-sm font-semibold">Date</th>
-                          <th className="text-left p-3 text-sm font-semibold">Status</th>
+                          <th className="text-left p-3 text-sm font-semibold text-junot-text-dark">Paiement #</th>
+                          <th className="text-left p-3 text-sm font-semibold text-junot-text-dark">Montant</th>
+                          <th className="text-left p-3 text-sm font-semibold text-junot-text-dark">Date</th>
+                          <th className="text-left p-3 text-sm font-semibold text-junot-text-dark">Statut</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -457,13 +457,13 @@ export default function Rentals() {
                 <div>
                   <h3 className="text-lg font-bold mb-3">Financial Summary</h3>
                   <div className="grid grid-cols-2 gap-4">
-                    <div className="bg-gray-900 p-4 rounded-xl">
+                    <div className="bg-white/60 backdrop-blur-sm p-4 rounded-xl">
                       <div className="text-neutral-400 text-sm mb-1">Total Paid/Collected</div>
                       <div className="text-2xl font-bold text-green-400">
                         {formatPrice(selectedAgreement.rentAmount * selectedAgreement.totalPayments)}
                       </div>
                     </div>
-                    <div className="bg-gray-900 p-4 rounded-xl">
+                    <div className="bg-white/60 backdrop-blur-sm p-4 rounded-xl">
                       <div className="text-neutral-400 text-sm mb-1">Average Monthly</div>
                       <div className="text-2xl font-bold">{formatPrice(selectedAgreement.rentAmount)}</div>
                     </div>
@@ -482,7 +482,7 @@ export default function Rentals() {
                   </button>
                   <button
                     onClick={() => setSelectedAgreement(null)}
-                    className="px-6 py-3 bg-gray-700 hover:bg-gray-600 rounded-lg font-semibold transition-colors"
+                    className="px-6 py-3 bg-white/60 border border-junot-border hover:bg-white/80 rounded-lg font-semibold transition-colors"
                   >
                     Close
                   </button>
@@ -493,9 +493,9 @@ export default function Rentals() {
         )}
 
         {/* Demo Notice */}
-        <div className="mt-8 p-6 bg-purple-900/30 border border-neutral-700/30 rounded-xl text-center">
-          <p className="text-neutral-300">
-            💰 Demo Mode - Rental data is simulated. Real USDC rent payments will be automated once blockchain integration is complete.
+        <div className="mt-8 p-6 bg-junot-gold/10 border border-junot-gold/30 rounded-xl text-center">
+          <p className="text-junot-text font-medium">
+            💰 <span className="font-bold text-junot-gold">Mode Démo</span> - Les données de location sont simulées. Les paiements réels en USDC seront automatisés une fois l'intégration blockchain terminée.
           </p>
         </div>
       </main>

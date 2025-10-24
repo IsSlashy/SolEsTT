@@ -65,8 +65,8 @@ export default function GovernancePage() {
         <main className="container mx-auto px-6 py-12">
           <div className="modern-card p-12 text-center max-w-2xl mx-auto">
             <div className="text-6xl mb-4">🗳️</div>
-            <h2 className="text-3xl font-bold mb-4">Connect Your Wallet</h2>
-            <p className="text-neutral-400">Connect your wallet to participate in governance</p>
+            <h2 className="text-3xl font-bold mb-4 text-junot-text-dark">Connectez Votre Wallet</h2>
+            <p className="text-junot-text-muted">Connectez votre wallet pour participer à la gouvernance</p>
           </div>
         </main>
       </div>
@@ -82,38 +82,38 @@ export default function GovernancePage() {
           {/* Header */}
           <div className="flex items-center justify-between mb-8">
             <div>
-              <h1 className="text-4xl font-bold mb-2">Governance</h1>
-              <p className="text-neutral-400">Vote on property decisions and proposals</p>
+              <h1 className="text-4xl font-bold mb-2 text-junot-text-dark">Gouvernance</h1>
+              <p className="text-junot-text-muted">Votez sur les décisions et propositions immobilières</p>
             </div>
             <button
               onClick={() => setShowCreateModal(true)}
               className="modern-button px-6 py-3 rounded-lg font-semibold"
             >
-              Create Proposal
+              Créer une Proposition
             </button>
           </div>
 
           {/* Stats */}
           <div className="grid md:grid-cols-4 gap-6 mb-8">
             <div className="modern-card p-6">
-              <div className="text-neutral-400 text-sm mb-2">Total Proposals</div>
-              <div className="text-3xl font-bold">{proposals.length}</div>
+              <div className="text-junot-text-muted text-sm mb-2 uppercase tracking-wider">Total Propositions</div>
+              <div className="text-3xl font-bold text-junot-text-dark">{proposals.length}</div>
             </div>
             <div className="modern-card p-6">
-              <div className="text-neutral-400 text-sm mb-2">Active Votes</div>
-              <div className="text-3xl font-bold text-green-400">
+              <div className="text-junot-text-muted text-sm mb-2 uppercase tracking-wider">Votes Actifs</div>
+              <div className="text-3xl font-bold text-junot-text-dark">
                 {proposals.filter(p => p.status === 'active').length}
               </div>
             </div>
             <div className="modern-card p-6">
-              <div className="text-neutral-400 text-sm mb-2">Passed</div>
-              <div className="text-3xl font-bold text-blue-400">
+              <div className="text-junot-text-muted text-sm mb-2 uppercase tracking-wider">Approuvées</div>
+              <div className="text-3xl font-bold text-junot-text-dark">
                 {proposals.filter(p => p.status === 'passed' || p.status === 'executed').length}
               </div>
             </div>
-            <div className="modern-card p-6">
-              <div className="text-neutral-400 text-sm mb-2">Your Voting Power</div>
-              <div className="text-3xl font-bold">100</div>
+            <div className="modern-card p-6 border-junot-gold/40">
+              <div className="text-junot-gold text-sm mb-2 uppercase tracking-wider">Votre Pouvoir de Vote</div>
+              <div className="text-3xl font-bold text-junot-text-dark">100</div>
             </div>
           </div>
 
@@ -122,12 +122,12 @@ export default function GovernancePage() {
             {proposals.length === 0 ? (
               <div className="modern-card p-12 text-center">
                 <div className="text-6xl mb-4">📋</div>
-                <p className="text-neutral-400 mb-4">No proposals yet</p>
+                <p className="text-junot-text-muted mb-4">Aucune proposition pour le moment</p>
                 <button
                   onClick={() => setShowCreateModal(true)}
-                  className="modern-button px-6 py-3 rounded-lg"
+                  className="modern-button px-6 py-3 rounded-lg font-semibold"
                 >
-                  Create First Proposal
+                  Créer la Première Proposition
                 </button>
               </div>
             ) : (
@@ -141,14 +141,14 @@ export default function GovernancePage() {
                   <div className="flex items-start justify-between mb-4">
                     <div className="flex-1">
                       <div className="flex items-center gap-3 mb-2">
-                        <h3 className="text-xl font-bold">{proposal.title}</h3>
+                        <h3 className="text-xl font-bold text-junot-text-dark">{proposal.title}</h3>
                         <span className={`px-3 py-1 rounded-full text-xs border ${getStatusColor(proposal.status)}`}>
                           {proposal.status.toUpperCase()}
                         </span>
                       </div>
-                      <p className="text-neutral-400 text-sm mb-2">{proposal.description}</p>
-                      <p className="text-xs text-neutral-500">
-                        Proposed by {proposal.proposer.substring(0, 8)}...{proposal.proposer.substring(proposal.proposer.length - 6)}
+                      <p className="text-junot-text-muted text-sm mb-2">{proposal.description}</p>
+                      <p className="text-xs text-junot-text-muted">
+                        Proposé par {proposal.proposer.substring(0, 8)}...{proposal.proposer.substring(proposal.proposer.length - 6)}
                       </p>
                     </div>
                   </div>
@@ -156,10 +156,10 @@ export default function GovernancePage() {
                   {/* Voting Results */}
                   <div className="mb-4">
                     <div className="flex justify-between text-sm mb-2">
-                      <span className="text-neutral-400">For: {proposal.votesFor}</span>
-                      <span className="text-neutral-400">Against: {proposal.votesAgainst}</span>
+                      <span className="text-junot-text-muted">Pour: {proposal.votesFor}</span>
+                      <span className="text-junot-text-muted">Contre: {proposal.votesAgainst}</span>
                     </div>
-                    <div className="w-full h-3 bg-neutral-800 rounded-full overflow-hidden flex">
+                    <div className="w-full h-3 bg-junot-cream-dark rounded-full overflow-hidden flex">
                       <div
                         className="bg-green-500"
                         style={{
@@ -181,25 +181,25 @@ export default function GovernancePage() {
                       <button
                         onClick={() => handleVote(proposal.id, true)}
                         disabled={loading}
-                        className="flex-1 px-4 py-2 bg-green-500/20 hover:bg-green-500/30 text-green-400 rounded-lg transition-colors border border-green-500/30"
+                        className="flex-1 px-4 py-2 bg-green-500/20 hover:bg-green-500/30 text-green-600 rounded-lg transition-colors border border-green-500/30 font-semibold"
                       >
-                        Vote For
+                        Voter Pour
                       </button>
                       <button
                         onClick={() => handleVote(proposal.id, false)}
                         disabled={loading}
-                        className="flex-1 px-4 py-2 bg-red-500/20 hover:bg-red-500/30 text-red-400 rounded-lg transition-colors border border-red-500/30"
+                        className="flex-1 px-4 py-2 bg-red-500/20 hover:bg-red-500/30 text-red-600 rounded-lg transition-colors border border-red-500/30 font-semibold"
                       >
-                        Vote Against
+                        Voter Contre
                       </button>
                     </div>
                   )}
 
                   {/* Time remaining */}
-                  <div className="mt-4 text-xs text-neutral-500">
+                  <div className="mt-4 text-xs text-junot-text-muted">
                     {proposal.status === 'active' && (
                       <>
-                        Ends {new Date(proposal.endTime).toLocaleDateString()}
+                        Se termine le {new Date(proposal.endTime).toLocaleDateString('fr-FR')}
                       </>
                     )}
                   </div>
@@ -218,42 +218,42 @@ export default function GovernancePage() {
             animate={{ opacity: 1, scale: 1 }}
             className="modern-card p-8 max-w-2xl w-full max-h-[90vh] overflow-y-auto"
           >
-            <h2 className="text-2xl font-bold mb-6">Create Proposal</h2>
+            <h2 className="text-2xl font-bold mb-6 text-junot-text-dark">Créer une Proposition</h2>
 
             <form onSubmit={handleCreateProposal} className="space-y-4">
               <div>
-                <label className="block text-sm font-medium mb-2">Property Address</label>
+                <label className="block text-sm font-medium mb-2 text-junot-text-dark">Adresse de la Propriété</label>
                 <input
                   type="text"
                   required
                   value={newProposal.propertyAddress}
                   onChange={(e) => setNewProposal({ ...newProposal, propertyAddress: e.target.value })}
-                  className="w-full px-4 py-3 bg-gray-900 border border-neutral-800 rounded-lg focus:ring-2 focus:ring-white focus:border-transparent"
-                  placeholder="Enter property address"
+                  className="modern-input"
+                  placeholder="Entrez l'adresse de la propriété"
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium mb-2">Title</label>
+                <label className="block text-sm font-medium mb-2 text-junot-text-dark">Titre</label>
                 <input
                   type="text"
                   required
                   value={newProposal.title}
                   onChange={(e) => setNewProposal({ ...newProposal, title: e.target.value })}
-                  className="w-full px-4 py-3 bg-gray-900 border border-neutral-800 rounded-lg focus:ring-2 focus:ring-white focus:border-transparent"
-                  placeholder="Proposal title"
+                  className="modern-input"
+                  placeholder="Titre de la proposition"
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium mb-2">Description</label>
+                <label className="block text-sm font-medium mb-2 text-junot-text-dark">Description</label>
                 <textarea
                   required
                   rows={5}
                   value={newProposal.description}
                   onChange={(e) => setNewProposal({ ...newProposal, description: e.target.value })}
-                  className="w-full px-4 py-3 bg-gray-900 border border-neutral-800 rounded-lg focus:ring-2 focus:ring-white focus:border-transparent"
-                  placeholder="Describe the proposal..."
+                  className="modern-input resize-none"
+                  placeholder="Décrivez la proposition..."
                 />
               </div>
 
@@ -261,16 +261,16 @@ export default function GovernancePage() {
                 <button
                   type="button"
                   onClick={() => setShowCreateModal(false)}
-                  className="flex-1 px-6 py-3 bg-gray-700 hover:bg-gray-600 rounded-lg font-semibold transition-colors"
+                  className="flex-1 px-6 py-3 bg-white/60 hover:bg-white border border-junot-border text-junot-text-dark rounded-lg font-semibold transition-colors"
                 >
-                  Cancel
+                  Annuler
                 </button>
                 <button
                   type="submit"
                   disabled={loading}
                   className="flex-1 modern-button px-6 py-3 rounded-lg font-semibold disabled:opacity-50"
                 >
-                  {loading ? 'Creating...' : 'Create Proposal'}
+                  {loading ? 'Création...' : 'Créer la Proposition'}
                 </button>
               </div>
             </form>

@@ -104,8 +104,8 @@ export default function DeFiPage() {
         <main className="container mx-auto px-6 py-12">
           <div className="modern-card p-12 text-center max-w-2xl mx-auto">
             <div className="text-6xl mb-4">💰</div>
-            <h2 className="text-3xl font-bold mb-4">Connect Your Wallet</h2>
-            <p className="text-neutral-400">Connect your wallet to access DeFi features</p>
+            <h2 className="text-3xl font-bold mb-4 text-junot-text-dark">Connectez Votre Wallet</h2>
+            <p className="text-junot-text-muted">Connectez votre wallet pour accéder aux fonctionnalités DeFi</p>
           </div>
         </main>
       </div>
@@ -120,28 +120,28 @@ export default function DeFiPage() {
         <main className="container mx-auto px-6 py-12">
           {/* Header */}
           <div className="mb-8">
-            <h1 className="text-4xl font-bold mb-2">DeFi Hub</h1>
-            <p className="text-neutral-400">Mortgages, Collateral, and Staking</p>
+            <h1 className="text-4xl font-bold mb-2 text-junot-text-dark">DeFi Hub</h1>
+            <p className="text-junot-text-muted">Hypothèques, Collatéral, et Staking</p>
           </div>
 
           {/* Loyalty Stats */}
           <div className="modern-card p-6 mb-8">
             <div className="flex items-center justify-between">
               <div>
-                <div className="text-neutral-400 text-sm mb-1">Loyalty Tier</div>
-                <div className="text-2xl font-bold capitalize">{loyaltyAccount.tier}</div>
+                <div className="text-junot-text-muted text-sm mb-1 uppercase tracking-wider">Niveau Fidélité</div>
+                <div className="text-2xl font-bold capitalize text-junot-text-dark">{loyaltyAccount.tier}</div>
               </div>
               <div>
-                <div className="text-neutral-400 text-sm mb-1">Points</div>
-                <div className="text-2xl font-bold">{loyaltyAccount.points.toLocaleString()}</div>
+                <div className="text-junot-text-muted text-sm mb-1 uppercase tracking-wider">Points</div>
+                <div className="text-2xl font-bold text-junot-text-dark">{loyaltyAccount.points.toLocaleString()}</div>
               </div>
               <div>
-                <div className="text-neutral-400 text-sm mb-1">Staked Tokens</div>
-                <div className="text-2xl font-bold">{loyaltyAccount.stakedTokens}</div>
+                <div className="text-junot-text-muted text-sm mb-1 uppercase tracking-wider">Tokens Stakés</div>
+                <div className="text-2xl font-bold text-junot-text-dark">{loyaltyAccount.stakedTokens}</div>
               </div>
               <div>
-                <div className="text-neutral-400 text-sm mb-1">Total Rewards</div>
-                <div className="text-2xl font-bold text-green-400">{loyaltyAccount.totalRewardsEarned.toFixed(2)}</div>
+                <div className="text-junot-text-muted text-sm mb-1 uppercase tracking-wider">Total Récompenses</div>
+                <div className="text-2xl font-bold text-junot-gold">{loyaltyAccount.totalRewardsEarned.toFixed(2)}</div>
               </div>
             </div>
           </div>
@@ -153,7 +153,7 @@ export default function DeFiPage() {
               className={`px-6 py-3 rounded-lg font-semibold transition-colors ${
                 activeTab === 'mortgage'
                   ? 'bg-white text-black'
-                  : 'bg-neutral-900 text-neutral-400 hover:bg-neutral-800 border border-neutral-800'
+                  : 'bg-neutral-900 text-junot-text-muted hover:bg-neutral-800 border border-neutral-800'
               }`}
             >
               Mortgages
@@ -163,7 +163,7 @@ export default function DeFiPage() {
               className={`px-6 py-3 rounded-lg font-semibold transition-colors ${
                 activeTab === 'collateral'
                   ? 'bg-white text-black'
-                  : 'bg-neutral-900 text-neutral-400 hover:bg-neutral-800 border border-neutral-800'
+                  : 'bg-neutral-900 text-junot-text-muted hover:bg-neutral-800 border border-neutral-800'
               }`}
             >
               Collateral
@@ -173,7 +173,7 @@ export default function DeFiPage() {
               className={`px-6 py-3 rounded-lg font-semibold transition-colors ${
                 activeTab === 'staking'
                   ? 'bg-white text-black'
-                  : 'bg-neutral-900 text-neutral-400 hover:bg-neutral-800 border border-neutral-800'
+                  : 'bg-neutral-900 text-junot-text-muted hover:bg-neutral-800 border border-neutral-800'
               }`}
             >
               Staking
@@ -194,7 +194,7 @@ export default function DeFiPage() {
                       required
                       value={mortgageForm.propertyAddress}
                       onChange={(e) => setMortgageForm({ ...mortgageForm, propertyAddress: e.target.value })}
-                      className="w-full px-4 py-3 bg-gray-900 border border-neutral-800 rounded-lg"
+                      className="w-full px-4 py-3 bg-white/60 backdrop-blur-sm border border-neutral-800 rounded-lg"
                       placeholder="Enter property address"
                     />
                   </div>
@@ -205,7 +205,7 @@ export default function DeFiPage() {
                       required
                       value={mortgageForm.loanAmount}
                       onChange={(e) => setMortgageForm({ ...mortgageForm, loanAmount: e.target.value })}
-                      className="w-full px-4 py-3 bg-gray-900 border border-neutral-800 rounded-lg"
+                      className="w-full px-4 py-3 bg-white/60 backdrop-blur-sm border border-neutral-800 rounded-lg"
                       placeholder="50000"
                     />
                   </div>
@@ -214,7 +214,7 @@ export default function DeFiPage() {
                     <select
                       value={mortgageForm.termMonths}
                       onChange={(e) => setMortgageForm({ ...mortgageForm, termMonths: e.target.value })}
-                      className="w-full px-4 py-3 bg-gray-900 border border-neutral-800 rounded-lg"
+                      className="w-full px-4 py-3 bg-white/60 backdrop-blur-sm border border-neutral-800 rounded-lg"
                     >
                       <option value="120">10 years</option>
                       <option value="180">15 years</option>
@@ -229,7 +229,7 @@ export default function DeFiPage() {
                       required
                       value={mortgageForm.collateralTokens}
                       onChange={(e) => setMortgageForm({ ...mortgageForm, collateralTokens: e.target.value })}
-                      className="w-full px-4 py-3 bg-gray-900 border border-neutral-800 rounded-lg"
+                      className="w-full px-4 py-3 bg-white/60 backdrop-blur-sm border border-neutral-800 rounded-lg"
                       placeholder="1000"
                     />
                   </div>
@@ -247,25 +247,25 @@ export default function DeFiPage() {
               <div className="modern-card p-6">
                 <h2 className="text-2xl font-bold mb-6">Your Mortgages</h2>
                 {mortgages.length === 0 ? (
-                  <p className="text-neutral-400 text-center py-8">No mortgages yet</p>
+                  <p className="text-junot-text-muted text-center py-8">No mortgages yet</p>
                 ) : (
                   <div className="space-y-4">
                     {mortgages.map((mortgage) => (
-                      <div key={mortgage.id} className="bg-gray-900 p-4 rounded-lg">
+                      <div key={mortgage.id} className="bg-white/60 backdrop-blur-sm p-4 rounded-lg">
                         <div className="flex justify-between mb-2">
-                          <span className="text-sm text-neutral-400">Loan Amount</span>
+                          <span className="text-sm text-junot-text-muted">Loan Amount</span>
                           <span className="font-semibold">${mortgage.loanAmount.toLocaleString()}</span>
                         </div>
                         <div className="flex justify-between mb-2">
-                          <span className="text-sm text-neutral-400">Monthly Payment</span>
+                          <span className="text-sm text-junot-text-muted">Monthly Payment</span>
                           <span className="font-semibold">${mortgage.monthlyPayment.toFixed(2)}</span>
                         </div>
                         <div className="flex justify-between mb-2">
-                          <span className="text-sm text-neutral-400">Interest Rate</span>
+                          <span className="text-sm text-junot-text-muted">Interest Rate</span>
                           <span className="font-semibold">{(mortgage.interestRate * 100).toFixed(2)}%</span>
                         </div>
                         <div className="flex justify-between">
-                          <span className="text-sm text-neutral-400">Status</span>
+                          <span className="text-sm text-junot-text-muted">Status</span>
                           <span className={`px-2 py-1 rounded text-xs ${
                             mortgage.status === 'active' ? 'bg-green-500/20 text-green-400' :
                             mortgage.status === 'pending' ? 'bg-yellow-500/20 text-yellow-400' :
@@ -296,7 +296,7 @@ export default function DeFiPage() {
                       required
                       value={collateralForm.propertyAddress}
                       onChange={(e) => setCollateralForm({ ...collateralForm, propertyAddress: e.target.value })}
-                      className="w-full px-4 py-3 bg-gray-900 border border-neutral-800 rounded-lg"
+                      className="w-full px-4 py-3 bg-white/60 backdrop-blur-sm border border-neutral-800 rounded-lg"
                     />
                   </div>
                   <div>
@@ -312,7 +312,7 @@ export default function DeFiPage() {
                           setCollateralForm(prev => ({ ...prev, borrowAmount: maxBorrow.toString() }));
                         }
                       }}
-                      className="w-full px-4 py-3 bg-gray-900 border border-neutral-800 rounded-lg"
+                      className="w-full px-4 py-3 bg-white/60 backdrop-blur-sm border border-neutral-800 rounded-lg"
                       placeholder="100"
                     />
                     {collateralForm.tokensToLock && (
@@ -328,7 +328,7 @@ export default function DeFiPage() {
                       required
                       value={collateralForm.borrowAmount}
                       onChange={(e) => setCollateralForm({ ...collateralForm, borrowAmount: e.target.value })}
-                      className="w-full px-4 py-3 bg-gray-900 border border-neutral-800 rounded-lg"
+                      className="w-full px-4 py-3 bg-white/60 backdrop-blur-sm border border-neutral-800 rounded-lg"
                       placeholder="5000"
                       max={collateralForm.tokensToLock ? calculateMaxBorrow(Number(collateralForm.tokensToLock)) : undefined}
                     />
@@ -352,27 +352,27 @@ export default function DeFiPage() {
               <div className="modern-card p-6">
                 <h2 className="text-2xl font-bold mb-6">Your Positions</h2>
                 {collateralPositions.length === 0 ? (
-                  <p className="text-neutral-400 text-center py-8">No positions yet</p>
+                  <p className="text-junot-text-muted text-center py-8">No positions yet</p>
                 ) : (
                   <div className="space-y-4">
                     {collateralPositions.map((position) => (
-                      <div key={position.id} className="bg-gray-900 p-4 rounded-lg">
+                      <div key={position.id} className="bg-white/60 backdrop-blur-sm p-4 rounded-lg">
                         <div className="flex justify-between mb-2">
-                          <span className="text-sm text-neutral-400">Locked Tokens</span>
+                          <span className="text-sm text-junot-text-muted">Locked Tokens</span>
                           <span className="font-semibold">{position.tokensLocked}</span>
                         </div>
                         <div className="flex justify-between mb-2">
-                          <span className="text-sm text-neutral-400">Borrowed</span>
+                          <span className="text-sm text-junot-text-muted">Borrowed</span>
                           <span className="font-semibold">${position.borrowedAmount.toLocaleString()}</span>
                         </div>
                         <div className="flex justify-between mb-2">
-                          <span className="text-sm text-neutral-400">Health Factor</span>
+                          <span className="text-sm text-junot-text-muted">Health Factor</span>
                           <span className={`font-semibold ${position.healthFactor >= 1.5 ? 'text-green-400' : position.healthFactor >= 1.2 ? 'text-yellow-400' : 'text-red-400'}`}>
                             {position.healthFactor.toFixed(2)}
                           </span>
                         </div>
                         <div className="flex justify-between">
-                          <span className="text-sm text-neutral-400">Status</span>
+                          <span className="text-sm text-junot-text-muted">Status</span>
                           <span className={`px-2 py-1 rounded text-xs ${
                             position.status === 'active' ? 'bg-green-500/20 text-green-400' : 'bg-gray-500/20 text-gray-400'
                           }`}>
@@ -401,7 +401,7 @@ export default function DeFiPage() {
                       required
                       value={stakingForm.propertyAddress}
                       onChange={(e) => setStakingForm({ ...stakingForm, propertyAddress: e.target.value })}
-                      className="w-full px-4 py-3 bg-gray-900 border border-neutral-800 rounded-lg"
+                      className="w-full px-4 py-3 bg-white/60 backdrop-blur-sm border border-neutral-800 rounded-lg"
                     />
                   </div>
                   <div>
@@ -411,7 +411,7 @@ export default function DeFiPage() {
                       required
                       value={stakingForm.tokensToStake}
                       onChange={(e) => setStakingForm({ ...stakingForm, tokensToStake: e.target.value })}
-                      className="w-full px-4 py-3 bg-gray-900 border border-neutral-800 rounded-lg"
+                      className="w-full px-4 py-3 bg-white/60 backdrop-blur-sm border border-neutral-800 rounded-lg"
                       placeholder="100"
                     />
                     <p className="text-xs text-neutral-500 mt-2">
@@ -432,23 +432,23 @@ export default function DeFiPage() {
               <div className="modern-card p-6">
                 <h2 className="text-2xl font-bold mb-6">Your Staking</h2>
                 {stakingPositions.length === 0 ? (
-                  <p className="text-neutral-400 text-center py-8">No staking positions yet</p>
+                  <p className="text-junot-text-muted text-center py-8">No staking positions yet</p>
                 ) : (
                   <div className="space-y-4">
                     {stakingPositions.map((position) => {
                       const rewards = calculateRewards(position);
                       return (
-                        <div key={position.id} className="bg-gray-900 p-4 rounded-lg">
+                        <div key={position.id} className="bg-white/60 backdrop-blur-sm p-4 rounded-lg">
                           <div className="flex justify-between mb-2">
-                            <span className="text-sm text-neutral-400">Staked</span>
+                            <span className="text-sm text-junot-text-muted">Staked</span>
                             <span className="font-semibold">{position.tokensStaked} tokens</span>
                           </div>
                           <div className="flex justify-between mb-2">
-                            <span className="text-sm text-neutral-400">APY</span>
+                            <span className="text-sm text-junot-text-muted">APY</span>
                             <span className="font-semibold text-green-400">{(position.apy * 100).toFixed(1)}%</span>
                           </div>
                           <div className="flex justify-between mb-3">
-                            <span className="text-sm text-neutral-400">Rewards</span>
+                            <span className="text-sm text-junot-text-muted">Rewards</span>
                             <span className="font-semibold">{rewards.toFixed(4)} tokens</span>
                           </div>
                           <button

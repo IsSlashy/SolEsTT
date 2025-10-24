@@ -3,18 +3,19 @@
 @tailwind utilities;
 
 :root {
-  /* Junot Brand Colors - Inspired by junot.fr */
-  --bg-primary: #0A1628;        /* Deep Navy Blue - Primary Background */
-  --bg-secondary: #132035;      /* Slightly lighter navy for cards */
-  --bg-tertiary: #1a2d47;       /* Hover states and accents */
-  --border-primary: #2a3f5f;    /* Subtle elegant borders */
-  --border-secondary: #1f3147;  /* Secondary borders */
-  --text-primary: #ffffff;      /* White text for contrast */
-  --text-secondary: #c5d0de;    /* Light blue-gray for secondary text */
-  --text-tertiary: #8896ab;     /* Muted text */
-  --accent-primary: #D4AF37;    /* Junot Gold/Champagne - Luxury accent */
+  /* Junot Luxury Cream & Gold Theme */
+  --bg-primary: #FAF8F3;        /* Cream white - Primary Background */
+  --bg-secondary: #F5F2EA;      /* Slightly darker cream for cards */
+  --bg-tertiary: #EDE8DD;       /* Hover states and accents */
+  --border-primary: #E5DFC8;    /* Subtle elegant borders */
+  --border-secondary: #D4CEBC;  /* Secondary borders */
+  --text-primary: #2C2416;      /* Dark brown - primary text */
+  --text-secondary: #4A3F2A;    /* Medium brown for secondary text */
+  --text-tertiary: #6B5D42;     /* Lighter brown for muted text */
+  --accent-primary: #D4AF37;    /* Junot Gold - Luxury accent */
   --accent-hover: #E5C158;      /* Lighter gold for hover states */
   --accent-secondary: #B8941F;  /* Darker gold for emphasis */
+  --accent-pale: #F4E8C1;       /* Very light gold for backgrounds */
   --success: #22c55e;
   --error: #ef4444;
   --warning: #f59e0b;
@@ -37,52 +38,56 @@
   /* Junot Luxury Card Style */
   .modern-card {
     @apply relative overflow-hidden rounded-xl p-6 transition-all duration-300;
-    background: var(--bg-secondary);
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(10px);
     border: 1px solid var(--border-primary);
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 12px rgba(212, 175, 55, 0.08);
   }
 
   .modern-card:hover {
     @apply translate-y-[-2px];
-    background: var(--bg-tertiary);
+    background: rgba(255, 255, 255, 0.9);
     border-color: var(--accent-primary);
-    box-shadow: 0 8px 16px rgba(212, 175, 55, 0.15);
+    box-shadow: 0 8px 24px rgba(212, 175, 55, 0.2);
   }
 
   /* Property cards with Junot elegance */
   .property-card {
     @apply relative overflow-hidden rounded-xl transition-all duration-300;
-    background: var(--bg-secondary);
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(10px);
     border: 1px solid var(--border-primary);
   }
 
   .property-card:hover {
     @apply translate-y-[-4px];
-    background: var(--bg-tertiary);
+    background: rgba(255, 255, 255, 0.95);
     border-color: var(--accent-primary);
-    box-shadow: 0 20px 40px rgba(212, 175, 55, 0.2);
+    box-shadow: 0 20px 40px rgba(212, 175, 55, 0.25);
   }
 
   /* Junot Gold Buttons - Premium feel */
   .modern-button {
     @apply relative px-6 py-2.5 rounded-lg font-semibold transition-all duration-300 border;
     background: var(--accent-primary);
-    color: var(--bg-primary);
-    border-color: var(--accent-primary);
+    color: white;
+    border-color: var(--accent-secondary);
     text-transform: uppercase;
     letter-spacing: 0.5px;
     font-size: 0.875rem;
+    box-shadow: 0 4px 12px rgba(212, 175, 55, 0.3);
   }
 
   .modern-button:hover {
     background: var(--accent-hover);
-    box-shadow: 0 6px 20px rgba(212, 175, 55, 0.4);
-    transform: translateY(-1px);
+    box-shadow: 0 6px 20px rgba(212, 175, 55, 0.5);
+    transform: translateY(-2px);
   }
 
   .modern-button-secondary {
     @apply relative px-6 py-2.5 rounded-lg font-semibold transition-all duration-300 border;
-    background: transparent;
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(10px);
     color: var(--accent-primary);
     border-color: var(--accent-primary);
     text-transform: uppercase;
@@ -92,9 +97,9 @@
 
   .modern-button-secondary:hover {
     background: var(--accent-primary);
-    color: var(--bg-primary);
-    box-shadow: 0 6px 20px rgba(212, 175, 55, 0.3);
-    transform: translateY(-1px);
+    color: white;
+    box-shadow: 0 6px 20px rgba(212, 175, 55, 0.4);
+    transform: translateY(-2px);
   }
 
   /* Scroll animations */
@@ -116,16 +121,17 @@
   /* Input fields - Elegant styling */
   .modern-input {
     @apply w-full px-4 py-2.5 rounded-lg transition-all duration-300 border;
-    background: var(--bg-secondary);
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(10px);
     color: var(--text-primary);
     border-color: var(--border-primary);
   }
 
   .modern-input:focus {
     outline: none;
-    background: var(--bg-tertiary);
+    background: rgba(255, 255, 255, 0.95);
     border-color: var(--accent-primary);
-    box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1);
+    box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.15);
   }
 
   .modern-input::placeholder {
@@ -138,15 +144,16 @@
   }
 
   ::-webkit-scrollbar-track {
-    background: var(--bg-primary);
+    background: var(--bg-secondary);
   }
 
   ::-webkit-scrollbar-thumb {
     @apply rounded-full;
-    background: var(--border-primary);
+    background: var(--accent-pale);
+    border: 1px solid var(--border-primary);
   }
 
   ::-webkit-scrollbar-thumb:hover {
-    background: var(--accent-secondary);
+    background: var(--accent-primary);
   }
 }

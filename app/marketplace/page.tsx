@@ -61,31 +61,31 @@ export default function Marketplace() {
 
       <main className="container mx-auto px-6 py-12">
         <div className="mb-8">
-          <h1 className="text-4xl font-bold mb-2">Marketplace</h1>
-          <p className="text-neutral-400 text-sm">Trade property shares on the secondary market</p>
+          <h1 className="text-4xl font-bold mb-2 text-junot-text-dark">Marché Secondaire</h1>
+          <p className="text-junot-text-muted text-sm">Échangez des parts de propriétés sur le marché secondaire</p>
         </div>
 
         {/* Market Stats */}
         <div className="grid md:grid-cols-4 gap-4 mb-8">
           <div className="modern-card p-6">
-            <div className="text-neutral-500 text-xs mb-2">24h Volume</div>
-            <div className="text-2xl font-bold">$127,450</div>
-            <div className="text-green-400 text-xs mt-1">+12.5%</div>
+            <div className="text-junot-text-muted text-xs mb-2 uppercase tracking-wider">Volume 24h</div>
+            <div className="text-2xl font-bold text-junot-text-dark">127 450€</div>
+            <div className="text-junot-gold text-xs mt-1 font-semibold">+12.5%</div>
           </div>
           <div className="modern-card p-6">
-            <div className="text-neutral-500 text-xs mb-2">Active Listings</div>
-            <div className="text-2xl font-bold">{mockListings.length}</div>
-            <div className="text-neutral-500 text-xs mt-1">Across {properties.length} properties</div>
+            <div className="text-junot-text-muted text-xs mb-2 uppercase tracking-wider">Annonces Actives</div>
+            <div className="text-2xl font-bold text-junot-text-dark">{mockListings.length}</div>
+            <div className="text-junot-text-muted text-xs mt-1">{properties.length} propriétés</div>
           </div>
           <div className="modern-card p-6">
-            <div className="text-neutral-500 text-xs mb-2">Avg. Price Change</div>
-            <div className="text-2xl font-bold">+3.2%</div>
-            <div className="text-green-400 text-xs mt-1">Last 7 days</div>
+            <div className="text-junot-text-muted text-xs mb-2 uppercase tracking-wider">Variation Moy.</div>
+            <div className="text-2xl font-bold text-junot-text-dark">+3.2%</div>
+            <div className="text-junot-gold text-xs mt-1 font-semibold">7 derniers jours</div>
           </div>
           <div className="modern-card p-6">
-            <div className="text-neutral-500 text-xs mb-2">Total Trades</div>
-            <div className="text-2xl font-bold">1,234</div>
-            <div className="text-neutral-400 text-xs mt-1">This month</div>
+            <div className="text-junot-text-muted text-xs mb-2 uppercase tracking-wider">Total Trades</div>
+            <div className="text-2xl font-bold text-junot-text-dark">1 234</div>
+            <div className="text-junot-text-muted text-xs mt-1">Ce mois-ci</div>
           </div>
         </div>
 
@@ -93,27 +93,27 @@ export default function Marketplace() {
         <div className="flex gap-3 mb-6">
           <button
             onClick={() => setSortBy('roi')}
-            className={`px-4 py-2 rounded-lg text-sm transition-colors ${
-              sortBy === 'roi' ? 'bg-white text-black' : 'bg-neutral-900 text-neutral-400 hover:bg-neutral-800 border border-neutral-800'
+            className={`px-4 py-2 rounded-lg text-sm font-semibold transition-all ${
+              sortBy === 'roi' ? 'bg-junot-gold text-white shadow-md' : 'bg-white/60 text-junot-text hover:bg-white border border-junot-border'
             }`}
           >
-            Best ROI
+            Meilleur ROI
           </button>
           <button
             onClick={() => setSortBy('price')}
-            className={`px-4 py-2 rounded-lg text-sm transition-colors ${
-              sortBy === 'price' ? 'bg-white text-black' : 'bg-neutral-900 text-neutral-400 hover:bg-neutral-800 border border-neutral-800'
+            className={`px-4 py-2 rounded-lg text-sm font-semibold transition-all ${
+              sortBy === 'price' ? 'bg-junot-gold text-white shadow-md' : 'bg-white/60 text-junot-text hover:bg-white border border-junot-border'
             }`}
           >
-            Lowest Price
+            Prix le Plus Bas
           </button>
           <button
             onClick={() => setSortBy('funded')}
-            className={`px-4 py-2 rounded-lg text-sm transition-colors ${
-              sortBy === 'funded' ? 'bg-white text-black' : 'bg-neutral-900 text-neutral-400 hover:bg-neutral-800 border border-neutral-800'
+            className={`px-4 py-2 rounded-lg text-sm font-semibold transition-all ${
+              sortBy === 'funded' ? 'bg-junot-gold text-white shadow-md' : 'bg-white/60 text-junot-text hover:bg-white border border-junot-border'
             }`}
           >
-            Most Funded
+            Plus Financé
           </button>
         </div>
 
@@ -202,7 +202,7 @@ export default function Marketplace() {
 
         {/* Demo Notice */}
         <div className="mt-8 p-6 modern-card text-center">
-          <p className="text-neutral-400 text-sm">
+          <p className="text-junot-text-muted text-sm">
             📊 Demo Mode - Marketplace data is simulated. Real trading will be available once blockchain integration is complete.
           </p>
         </div>

@@ -10,7 +10,7 @@ const WalletMultiButtonDynamic = dynamic(
 export default function WalletButton() {
   return (
     <WalletMultiButtonDynamic
-      className="!bg-purple-600 hover:!bg-purple-700 !transition-colors"
+      className="!bg-junot-gold hover:!bg-junot-gold-light !text-white !transition-all !shadow-lg hover:!shadow-xl !border !border-junot-gold-dark !font-semibold !uppercase !tracking-wide !text-sm"
     />
   );
 }
