@@ -25,7 +25,7 @@ pub mod rental_payment {
         rental.total_payments = 0;
         rental.is_active = true;
         rental.created_at = Clock::get()?.unix_timestamp;
-        rental.bump = ctx.bumps.rental_agreement;
+        rental.bump = *ctx.bumps.get("rental_agreement").unwrap();
 
         msg!("Rental agreement created for property: {}", property_id);
         Ok(())

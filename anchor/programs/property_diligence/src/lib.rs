@@ -18,7 +18,7 @@ pub mod property_diligence {
         registry.total_properties = 0;
         registry.total_verifiers = 0;
         registry.created_at = Clock::get()?.unix_timestamp;
-        registry.bump = ctx.bumps.registry;
+        registry.bump = *ctx.bumps.get("registry").unwrap();
 
         msg!("Property registry created: {}", registry.registry_name);
         Ok(())
@@ -44,7 +44,7 @@ pub mod property_diligence {
         verifier.total_verifications = 0;
         verifier.is_active = true;
         verifier.registered_at = Clock::get()?.unix_timestamp;
-        verifier.bump = ctx.bumps.verifier;
+        verifier.bump = *ctx.bumps.get("verifier").unwrap();
 
         registry.total_verifiers = registry.total_verifiers.checked_add(1).unwrap();
 
@@ -72,7 +72,7 @@ pub mod property_diligence {
         verification.verification_status = VerificationStatus::Pending;
         verification.verifications_count = 0;
         verification.submitted_at = Clock::get()?.unix_timestamp;
-        verification.bump = ctx.bumps.property_verification;
+        verification.bump = *ctx.bumps.get("property_verification").unwrap();
 
         registry.total_properties = registry.total_properties.checked_add(1).unwrap();
 
@@ -100,7 +100,7 @@ pub mod property_diligence {
         attestation.verified_value = verified_value;
         attestation.notes = notes;
         attestation.verified_at = Clock::get()?.unix_timestamp;
-        attestation.bump = ctx.bumps.verification_attestation;
+        attestation.bump = *ctx.bumps.get("verification_attestation").unwrap();
 
         verification.verifications_count = verification.verifications_count.checked_add(1).unwrap();
         verifier.total_verifications = verifier.total_verifications.checked_add(1).unwrap();

@@ -22,7 +22,7 @@ pub mod rwa_collateral {
         vault.total_borrowed = 0;
         vault.is_active = true;
         vault.created_at = Clock::get()?.unix_timestamp;
-        vault.bump = ctx.bumps.vault;
+        vault.bump = *ctx.bumps.get("vault").unwrap();
 
         msg!("Collateral vault created: {}", vault.vault_name);
         Ok(())
@@ -63,7 +63,7 @@ pub mod rwa_collateral {
         position.collateral_value = position.collateral_value.checked_add(collateral_value).unwrap();
         position.borrowed_amount = 0;
         position.last_update = Clock::get()?.unix_timestamp;
-        position.bump = ctx.bumps.collateral_position;
+        position.bump = *ctx.bumps.get("collateral_position").unwrap();
 
         vault.total_collateral_value = vault.total_collateral_value.checked_add(collateral_value).unwrap();
 

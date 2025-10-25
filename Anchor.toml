@@ -1,8 +1,22 @@
 [toolchain]
+anchor_version = "0.28.0"
+
+[build]
+docker = false
 
 [features]
 resolution = true
 skip-lint = false
+
+[workspace]
+members = [
+    "anchor/programs/property_tokenization",
+    "anchor/programs/rental_payment",
+    "anchor/programs/mortgage_credit",
+    "anchor/programs/rwa_collateral",
+    "anchor/programs/property_diligence",
+    "anchor/programs/loyalty_rewards"
+]
 
 [programs.devnet]
 property_tokenization = "pRoPoA8Q748zuxX2DptJpC9b8e3a56Ap3FVUu5U7r6Z"
@@ -25,7 +39,7 @@ url = "https://api.apr.dev"
 
 [provider]
 cluster = "Devnet"
-wallet = "C:\\Users\\Slashy\\.config\\solana\\deployer.json"
+wallet = "/mnt/c/Users/Slashy/.config/solana/deployer.json"
 
 [scripts]
 test = "yarn run ts-mocha -p ./tsconfig.json -t 1000000 anchor/tests/**/*.ts"

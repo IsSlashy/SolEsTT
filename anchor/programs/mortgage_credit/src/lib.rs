@@ -26,7 +26,7 @@ pub mod mortgage_credit {
         pool.total_borrowed = 0;
         pool.is_active = true;
         pool.created_at = Clock::get()?.unix_timestamp;
-        pool.bump = ctx.bumps.mortgage_pool;
+        pool.bump = *ctx.bumps.get("mortgage_pool").unwrap();
 
         msg!("Mortgage pool created: {}", pool.pool_name);
         Ok(())
@@ -94,7 +94,7 @@ pub mod mortgage_credit {
         mortgage.is_active = true;
         mortgage.start_date = Clock::get()?.unix_timestamp;
         mortgage.last_payment_date = 0;
-        mortgage.bump = ctx.bumps.mortgage;
+        mortgage.bump = *ctx.bumps.get("mortgage").unwrap();
 
         msg!("Mortgage requested: {} USDC at {}%", loan_amount, pool.interest_rate / 100);
         Ok(())

@@ -23,7 +23,7 @@ pub mod loyalty_rewards {
         program.total_rewards_distributed = 0;
         program.is_active = true;
         program.created_at = Clock::get()?.unix_timestamp;
-        program.bump = ctx.bumps.loyalty_program;
+        program.bump = *ctx.bumps.get("loyalty_program").unwrap();
 
         msg!("Loyalty program created: {}", program.program_name);
         Ok(())
@@ -44,7 +44,7 @@ pub mod loyalty_rewards {
         member.rewards_claimed = 0;
         member.tier = MemberTier::Bronze;
         member.joined_at = Clock::get()?.unix_timestamp;
-        member.bump = ctx.bumps.member;
+        member.bump = *ctx.bumps.get("member").unwrap();
 
         program.total_members = program.total_members.checked_add(1).unwrap();
 
@@ -161,7 +161,7 @@ pub mod loyalty_rewards {
         stake.unlock_time = current_time + lock_period;
         stake.yield_claimed = 0;
         stake.is_active = true;
-        stake.bump = ctx.bumps.stake_position;
+        stake.bump = *ctx.bumps.get("stake_position").unwrap();
 
         msg!("Staked {} property tokens for {} seconds", amount, lock_period);
         Ok(())

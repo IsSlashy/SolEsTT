@@ -29,7 +29,7 @@ pub mod property_tokenization {
         property.metadata_uri = metadata_uri;
         property.is_tokenized = false;
         property.created_at = Clock::get()?.unix_timestamp;
-        property.bump = ctx.bumps.property;
+        property.bump = *ctx.bumps.get("property").unwrap();
 
         msg!("Property created: {}", property.name);
         Ok(())
