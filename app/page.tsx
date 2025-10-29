@@ -6,15 +6,17 @@ import { useWallet } from '@solana/wallet-adapter-react';
 import AnimatedStats from '@/components/animations/AnimatedStats';
 import PageTransition from '@/components/animations/PageTransition';
 import { motion } from 'framer-motion';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 export default function Home() {
   const { connected } = useWallet();
+  const { t } = useLanguage();
 
   const stats = [
-    { label: 'Valeur Totale Verrouillée', value: 0, prefix: '€', suffix: 'M+', decimals: 0 },
-    { label: 'Propriétés Listées', value: 0, suffix: '', decimals: 0 },
-    { label: 'Investisseurs Actifs', value: 0, suffix: '', decimals: 0 },
-    { label: 'Frais Moyenne Transaction', value: 0.0003, prefix: '~€', suffix: '', decimals: 4 },
+    { label: t('home.stats.tvl'), value: 0, prefix: '€', suffix: 'M+', decimals: 0 },
+    { label: t('home.stats.properties'), value: 0, suffix: '', decimals: 0 },
+    { label: t('home.stats.investors'), value: 0, suffix: '', decimals: 0 },
+    { label: t('home.stats.fees'), value: 0.0003, prefix: '~€', suffix: '', decimals: 4 },
   ];
 
   return (
@@ -32,34 +34,33 @@ export default function Home() {
               transition={{ duration: 0.6 }}
             >
               <h1 className="text-7xl font-bold mb-4 bg-gradient-to-r from-junot-text-dark via-junot-gold to-junot-gold-light bg-clip-text text-transparent">
-                SolEsTT
+                {t('home.title')}
               </h1>
               <div className="h-1 w-32 bg-gradient-to-r from-junot-gold to-junot-gold-light mx-auto mb-6"></div>
             </motion.div>
             <h2 className="text-4xl font-serif font-normal text-junot-text-light">
-              Immobilier de Prestige × Blockchain
+              {t('home.subtitle')}
             </h2>
             <p className="text-sm text-junot-gold mt-4 uppercase tracking-widest font-semibold">
-              En partenariat avec Junot
+              {t('home.partnership')}
             </p>
           </div>
 
           <p className="text-lg text-junot-text max-w-2xl mx-auto leading-relaxed">
-            Tokenisez des propriétés d'excellence, investissez de manière fractionnée,
-            et gérez vos revenus locatifs sur Solana.
+            {t('home.description')}
             <br />
-            <span className="text-junot-text-dark font-semibold">35 ans d'expertise Junot × La puissance de Solana</span>
+            <span className="text-junot-text-dark font-semibold">{t('home.expertiseTag')}</span>
           </p>
 
           <div className="flex gap-4 justify-center pt-8">
             <Link href="/properties" className="modern-button">
-              Découvrir les Biens
+              {t('home.discoverBtn')}
             </Link>
             <Link
               href="/marketplace"
               className="modern-button-secondary"
             >
-              Explorer le Marché
+              {t('home.exploreBtn')}
             </Link>
           </div>
         </div>
@@ -68,21 +69,19 @@ export default function Home() {
         <div className="py-20 border-t border-junot-border">
           <div className="max-w-4xl mx-auto">
             <h2 className="text-3xl font-serif font-bold text-center mb-8 text-junot-gold">
-              Pourquoi Junot × Solana ?
+              {t('home.whyJunot')}
             </h2>
             <div className="grid md:grid-cols-2 gap-8">
               <div className="modern-card">
-                <h3 className="text-xl font-semibold mb-3 text-junot-gold">Excellence & Héritage</h3>
+                <h3 className="text-xl font-semibold mb-3 text-junot-gold">{t('home.excellenceTitle')}</h3>
                 <p className="text-junot-text text-sm leading-relaxed">
-                  Depuis 1984, Junot est une référence de l'immobilier de luxe en France et en Belgique.
-                  Plus de 35 ans d'expertise dans l'accompagnement des transactions les plus prestigieuses.
+                  {t('home.excellenceDesc')}
                 </p>
               </div>
               <div className="modern-card">
-                <h3 className="text-xl font-semibold mb-3 text-junot-gold">Innovation Blockchain</h3>
+                <h3 className="text-xl font-semibold mb-3 text-junot-gold">{t('home.innovationTitle')}</h3>
                 <p className="text-junot-text text-sm leading-relaxed">
-                  La rapidité de Solana (400ms) et ses frais ultra-faibles (0,0003€) permettent
-                  de démocratiser l'accès aux biens d'exception parisiens et bruxellois.
+                  {t('home.innovationDesc')}
                 </p>
               </div>
             </div>
@@ -93,27 +92,25 @@ export default function Home() {
         <div className="grid md:grid-cols-3 gap-6 py-20">
           <div className="modern-card group">
             <div className="text-4xl mb-4">🏛️</div>
-            <h3 className="text-xl font-semibold mb-3 text-junot-gold">Biens Tokenisés</h3>
+            <h3 className="text-xl font-semibold mb-3 text-junot-gold">{t('home.feature1Title')}</h3>
             <p className="text-junot-text text-sm leading-relaxed">
-              Transformez des propriétés d'exception en NFTs sur Solana.
-              Propriété transparente avec registre immuable.
+              {t('home.feature1Desc')}
             </p>
           </div>
 
           <div className="modern-card group">
             <div className="text-4xl mb-4">💎</div>
-            <h3 className="text-xl font-semibold mb-3 text-junot-gold">Investissement Fractionné</h3>
+            <h3 className="text-xl font-semibold mb-3 text-junot-gold">{t('home.feature2Title')}</h3>
             <p className="text-junot-text text-sm leading-relaxed">
-              Accédez aux biens premium parisiens dès 100€.
-              Avenue Foch, Triangle d'Or, et plus encore.
+              {t('home.feature2Desc')}
             </p>
           </div>
 
           <div className="modern-card group">
             <div className="text-4xl mb-4">⚡</div>
-            <h3 className="text-xl font-semibold mb-3 text-junot-gold">Loyers Automatisés</h3>
+            <h3 className="text-xl font-semibold mb-3 text-junot-gold">{t('home.feature3Title')}</h3>
             <p className="text-junot-text text-sm leading-relaxed">
-              Encaissement automatique en USDC. Sans intermédiaire, règlement instantané.
+              {t('home.feature3Desc')}
             </p>
           </div>
         </div>
@@ -124,7 +121,7 @@ export default function Home() {
         {/* How It Works */}
         <div className="py-20">
           <h2 className="text-4xl font-serif font-bold text-center mb-16 text-junot-gold">
-            Comment Ça Marche
+            {t('home.howItWorks')}
           </h2>
 
           <div className="grid md:grid-cols-4 gap-8">
@@ -132,32 +129,32 @@ export default function Home() {
               <div className="w-16 h-16 bg-gradient-to-br from-junot-gold to-junot-gold-light text-white rounded-full flex items-center justify-center text-xl font-bold mx-auto mb-4 transition-transform group-hover:scale-110 shadow-lg">
                 1
               </div>
-              <h4 className="font-semibold mb-2 text-base text-junot-text-dark">Connectez votre Wallet</h4>
-              <p className="text-junot-text-muted text-sm">Liez votre wallet Solana pour commencer</p>
+              <h4 className="font-semibold mb-2 text-base text-junot-text-dark">{t('home.step1Title')}</h4>
+              <p className="text-junot-text-muted text-sm">{t('home.step1Desc')}</p>
             </div>
 
             <div className="text-center group">
               <div className="w-16 h-16 bg-gradient-to-br from-junot-gold to-junot-gold-light text-white rounded-full flex items-center justify-center text-xl font-bold mx-auto mb-4 transition-transform group-hover:scale-110 shadow-lg">
                 2
               </div>
-              <h4 className="font-semibold mb-2 text-base text-junot-text-dark">Parcourez les Biens</h4>
-              <p className="text-junot-text-muted text-sm">Explorez les opportunités immobilières tokenisées</p>
+              <h4 className="font-semibold mb-2 text-base text-junot-text-dark">{t('home.step2Title')}</h4>
+              <p className="text-junot-text-muted text-sm">{t('home.step2Desc')}</p>
             </div>
 
             <div className="text-center group">
               <div className="w-16 h-16 bg-gradient-to-br from-junot-gold to-junot-gold-light text-white rounded-full flex items-center justify-center text-xl font-bold mx-auto mb-4 transition-transform group-hover:scale-110 shadow-lg">
                 3
               </div>
-              <h4 className="font-semibold mb-2 text-base text-junot-text-dark">Investissez</h4>
-              <p className="text-junot-text-muted text-sm">Achetez des parts fractionnées avec SOL ou USDC</p>
+              <h4 className="font-semibold mb-2 text-base text-junot-text-dark">{t('home.step3Title')}</h4>
+              <p className="text-junot-text-muted text-sm">{t('home.step3Desc')}</p>
             </div>
 
             <div className="text-center group">
               <div className="w-16 h-16 bg-gradient-to-br from-junot-gold to-junot-gold-light text-white rounded-full flex items-center justify-center text-xl font-bold mx-auto mb-4 transition-transform group-hover:scale-110 shadow-lg">
                 4
               </div>
-              <h4 className="font-semibold mb-2 text-base text-junot-text-dark">Percevez des Revenus</h4>
-              <p className="text-junot-text-muted text-sm">Recevez les loyers directement sur votre wallet</p>
+              <h4 className="font-semibold mb-2 text-base text-junot-text-dark">{t('home.step4Title')}</h4>
+              <p className="text-junot-text-muted text-sm">{t('home.step4Desc')}</p>
             </div>
           </div>
         </div>
@@ -166,9 +163,9 @@ export default function Home() {
         {!connected && (
           <div className="text-center py-16 modern-card border-junot-gold">
             <h2 className="text-3xl font-serif font-bold mb-4 text-junot-gold">
-              Prêt à Commencer ?
+              {t('home.readyTitle')}
             </h2>
-            <p className="text-junot-text mb-8">Connectez votre wallet pour explorer la plateforme</p>
+            <p className="text-junot-text mb-8">{t('home.readyDesc')}</p>
             <div className="status-dot inline-block"></div>
           </div>
         )}
@@ -176,10 +173,10 @@ export default function Home() {
 
       <footer className="relative z-10 border-t border-junot-border py-8 text-center bg-junot-cream/80 backdrop-blur-sm">
         <p className="text-junot-text text-sm">
-          Construit pour le <span className="text-junot-gold font-semibold">Solana Colosseum Hackathon</span> en partenariat avec <span className="text-junot-gold font-semibold">Junot</span>
+          {t('home.footerBuilt')} <span className="text-junot-gold font-semibold">{t('home.footerHackathon')}</span> {t('home.footerPartnership')} <span className="text-junot-gold font-semibold">Junot</span>
         </p>
         <p className="text-xs mt-2 text-junot-text-muted">
-          Propulsé par <span className="text-junot-text-dark">Solana Blockchain</span> • 35 ans d'excellence Junot
+          {t('home.footerPowered')} <span className="text-junot-text-dark">Solana Blockchain</span> • {t('home.footerExpertise')}
         </p>
       </footer>
       </PageTransition>

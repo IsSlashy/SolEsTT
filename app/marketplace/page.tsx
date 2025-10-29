@@ -4,8 +4,10 @@ import { useState } from 'react';
 import Header from '@/components/Header';
 import Link from 'next/link';
 import { getAllProperties, formatPrice, calculateROI } from '@/lib/solana/mockData';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 export default function Marketplace() {
+  const { t } = useLanguage();
   const properties = getAllProperties();
   const [sortBy, setSortBy] = useState<'price' | 'roi' | 'funded'>('roi');
 
@@ -61,31 +63,31 @@ export default function Marketplace() {
 
       <main className="container mx-auto px-6 py-12">
         <div className="mb-8">
-          <h1 className="text-4xl font-bold mb-2 text-junot-text-dark">Marché Secondaire</h1>
-          <p className="text-junot-text-muted text-sm">Échangez des parts de propriétés sur le marché secondaire</p>
+          <h1 className="text-4xl font-bold mb-2 text-junot-text-dark">{t('marketplace.title')}</h1>
+          <p className="text-junot-text-muted text-sm">{t('marketplace.subtitle')}</p>
         </div>
 
         {/* Market Stats */}
         <div className="grid md:grid-cols-4 gap-4 mb-8">
           <div className="modern-card p-6">
-            <div className="text-junot-text-muted text-xs mb-2 uppercase tracking-wider">Volume 24h</div>
+            <div className="text-junot-text-muted text-xs mb-2 uppercase tracking-wider">{t('marketplace.stats.volume24h')}</div>
             <div className="text-2xl font-bold text-junot-text-dark">127 450€</div>
             <div className="text-junot-gold text-xs mt-1 font-semibold">+12.5%</div>
           </div>
           <div className="modern-card p-6">
-            <div className="text-junot-text-muted text-xs mb-2 uppercase tracking-wider">Annonces Actives</div>
+            <div className="text-junot-text-muted text-xs mb-2 uppercase tracking-wider">{t('marketplace.stats.activeListings')}</div>
             <div className="text-2xl font-bold text-junot-text-dark">{mockListings.length}</div>
-            <div className="text-junot-text-muted text-xs mt-1">{properties.length} propriétés</div>
+            <div className="text-junot-text-muted text-xs mt-1">{properties.length} {t('marketplace.stats.properties')}</div>
           </div>
           <div className="modern-card p-6">
-            <div className="text-junot-text-muted text-xs mb-2 uppercase tracking-wider">Variation Moy.</div>
+            <div className="text-junot-text-muted text-xs mb-2 uppercase tracking-wider">{t('marketplace.stats.avgChange')}</div>
             <div className="text-2xl font-bold text-junot-text-dark">+3.2%</div>
-            <div className="text-junot-gold text-xs mt-1 font-semibold">7 derniers jours</div>
+            <div className="text-junot-gold text-xs mt-1 font-semibold">{t('marketplace.stats.last7Days')}</div>
           </div>
           <div className="modern-card p-6">
-            <div className="text-junot-text-muted text-xs mb-2 uppercase tracking-wider">Total Trades</div>
+            <div className="text-junot-text-muted text-xs mb-2 uppercase tracking-wider">{t('marketplace.stats.totalTrades')}</div>
             <div className="text-2xl font-bold text-junot-text-dark">1 234</div>
-            <div className="text-junot-text-muted text-xs mt-1">Ce mois-ci</div>
+            <div className="text-junot-text-muted text-xs mt-1">{t('marketplace.stats.thisMonth')}</div>
           </div>
         </div>
 
@@ -97,7 +99,7 @@ export default function Marketplace() {
               sortBy === 'roi' ? 'bg-junot-gold text-white shadow-md' : 'bg-white/60 text-junot-text hover:bg-white border border-junot-border'
             }`}
           >
-            Meilleur ROI
+            {t('marketplace.filters.bestROI')}
           </button>
           <button
             onClick={() => setSortBy('price')}
@@ -105,7 +107,7 @@ export default function Marketplace() {
               sortBy === 'price' ? 'bg-junot-gold text-white shadow-md' : 'bg-white/60 text-junot-text hover:bg-white border border-junot-border'
             }`}
           >
-            Prix le Plus Bas
+            {t('marketplace.filters.lowestPrice')}
           </button>
           <button
             onClick={() => setSortBy('funded')}
@@ -113,7 +115,7 @@ export default function Marketplace() {
               sortBy === 'funded' ? 'bg-junot-gold text-white shadow-md' : 'bg-white/60 text-junot-text hover:bg-white border border-junot-border'
             }`}
           >
-            Plus Financé
+            {t('marketplace.filters.mostFunded')}
           </button>
         </div>
 
@@ -153,15 +155,15 @@ export default function Marketplace() {
                         {listing.propertyName}
                       </Link>
                       <div className="text-xs text-neutral-500 mt-1">
-                        Seller: {listing.seller}
+                        {t('marketplace.listing.seller')}: {listing.seller}
                       </div>
                       <div className="flex gap-4 mt-2">
                         <div className="text-xs">
-                          <span className="text-neutral-500">ROI:</span>{' '}
+                          <span className="text-neutral-500">{t('marketplace.listing.roi')}:</span>{' '}
                           <span className="font-medium">{calculateROI(property)}%</span>
                         </div>
                         <div className="text-xs">
-                          <span className="text-neutral-500">Location:</span>{' '}
+                          <span className="text-neutral-500">{t('marketplace.listing.location')}:</span>{' '}
                           <span className="font-medium">{property.location}</span>
                         </div>
                       </div>
@@ -171,12 +173,12 @@ export default function Marketplace() {
                   {/* Listing Details */}
                   <div className="flex items-center gap-8">
                     <div className="text-right">
-                      <div className="text-neutral-500 text-xs">Shares Available</div>
+                      <div className="text-neutral-500 text-xs">{t('marketplace.listing.sharesAvailable')}</div>
                       <div className="text-xl font-bold">{listing.shares.toLocaleString()}</div>
                     </div>
 
                     <div className="text-right">
-                      <div className="text-neutral-500 text-xs">Price per Share</div>
+                      <div className="text-neutral-500 text-xs">{t('marketplace.listing.pricePerShare')}</div>
                       <div className="text-xl font-bold">{formatPrice(listing.pricePerShare)}</div>
                       <div className={`text-xs mt-1 ${
                         listing.trending === 'up' ? 'text-green-400' : 'text-red-400'
@@ -186,12 +188,12 @@ export default function Marketplace() {
                     </div>
 
                     <div className="text-right">
-                      <div className="text-neutral-500 text-xs">Total Value</div>
+                      <div className="text-neutral-500 text-xs">{t('marketplace.listing.totalValue')}</div>
                       <div className="text-xl font-bold">{formatPrice(listing.totalPrice)}</div>
                     </div>
 
                     <button className="modern-button whitespace-nowrap">
-                      Buy Now
+                      {t('marketplace.listing.buyNow')}
                     </button>
                   </div>
                 </div>
@@ -203,7 +205,7 @@ export default function Marketplace() {
         {/* Demo Notice */}
         <div className="mt-8 p-6 modern-card text-center">
           <p className="text-junot-text-muted text-sm">
-            📊 Demo Mode - Marketplace data is simulated. Real trading will be available once blockchain integration is complete.
+            📊 {t('marketplace.demoNotice')}
           </p>
         </div>
       </main>

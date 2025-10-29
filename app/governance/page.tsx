@@ -6,8 +6,10 @@ import { useWallet } from '@solana/wallet-adapter-react';
 import PageTransition from '@/components/animations/PageTransition';
 import { useGovernance, Proposal } from '@/lib/solana/hooks/useGovernance';
 import { motion } from 'framer-motion';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 export default function GovernancePage() {
+  const { t } = useLanguage();
   const { connected, publicKey } = useWallet();
   const { createProposal, vote, getProposals, executeProposal, loading } = useGovernance();
 
@@ -65,8 +67,8 @@ export default function GovernancePage() {
         <main className="container mx-auto px-6 py-12">
           <div className="modern-card p-12 text-center max-w-2xl mx-auto">
             <div className="text-6xl mb-4">🗳️</div>
-            <h2 className="text-3xl font-bold mb-4 text-junot-text-dark">Connectez Votre Wallet</h2>
-            <p className="text-junot-text-muted">Connectez votre wallet pour participer à la gouvernance</p>
+            <h2 className="text-3xl font-bold mb-4 text-junot-text-dark">{t('governance.connectWallet')}</h2>
+            <p className="text-junot-text-muted">{t('governance.connectDesc')}</p>
           </div>
         </main>
       </div>
@@ -82,14 +84,14 @@ export default function GovernancePage() {
           {/* Header */}
           <div className="flex items-center justify-between mb-8">
             <div>
-              <h1 className="text-4xl font-bold mb-2 text-junot-text-dark">Gouvernance</h1>
-              <p className="text-junot-text-muted">Votez sur les décisions et propositions immobilières</p>
+              <h1 className="text-4xl font-bold mb-2 text-junot-text-dark">{t('governance.title')}</h1>
+              <p className="text-junot-text-muted">{t('governance.subtitle')}</p>
             </div>
             <button
               onClick={() => setShowCreateModal(true)}
               className="modern-button px-6 py-3 rounded-lg font-semibold"
             >
-              Créer une Proposition
+              {t('governance.createProposal')}
             </button>
           </div>
 

@@ -6,8 +6,10 @@ import { useWallet } from '@solana/wallet-adapter-react';
 import { useBadges, Badge } from '@/lib/solana/hooks/useBadges';
 import PageTransition from '@/components/animations/PageTransition';
 import { motion } from 'framer-motion';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 export default function BadgesPage() {
+  const { t } = useLanguage();
   const { connected } = useWallet();
   const { badges, stats, mintBadge, loading } = useBadges();
   const [filter, setFilter] = useState<'all' | 'unlocked' | 'locked'>('all');

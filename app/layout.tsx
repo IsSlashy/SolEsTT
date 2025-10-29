@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import WalletContextProvider from "@/contexts/WalletContextProvider";
+import { LanguageProvider } from "@/contexts/LanguageContext";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -24,7 +25,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="fr">
+    <html lang="en">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-junot-cream-light`}
       >
@@ -44,9 +45,11 @@ export default function RootLayout({
           }}></div>
         </div>
 
-        <WalletContextProvider>
-          {children}
-        </WalletContextProvider>
+        <LanguageProvider>
+          <WalletContextProvider>
+            {children}
+          </WalletContextProvider>
+        </LanguageProvider>
       </body>
     </html>
   );

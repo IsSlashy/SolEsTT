@@ -8,10 +8,12 @@ import { useMortgage } from '@/lib/solana/hooks/useMortgage';
 import { useCollateral } from '@/lib/solana/hooks/useCollateral';
 import { useLoyalty } from '@/lib/solana/hooks/useLoyalty';
 import { motion } from 'framer-motion';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 type TabType = 'mortgage' | 'collateral' | 'staking';
 
 export default function DeFiPage() {
+  const { t } = useLanguage();
   const { connected, publicKey } = useWallet();
   const [activeTab, setActiveTab] = useState<TabType>('mortgage');
 
@@ -104,8 +106,8 @@ export default function DeFiPage() {
         <main className="container mx-auto px-6 py-12">
           <div className="modern-card p-12 text-center max-w-2xl mx-auto">
             <div className="text-6xl mb-4">💰</div>
-            <h2 className="text-3xl font-bold mb-4 text-junot-text-dark">Connectez Votre Wallet</h2>
-            <p className="text-junot-text-muted">Connectez votre wallet pour accéder aux fonctionnalités DeFi</p>
+            <h2 className="text-3xl font-bold mb-4 text-junot-text-dark">{t('defi.connectWallet')}</h2>
+            <p className="text-junot-text-muted">{t('defi.connectDesc')}</p>
           </div>
         </main>
       </div>
@@ -120,8 +122,8 @@ export default function DeFiPage() {
         <main className="container mx-auto px-6 py-12">
           {/* Header */}
           <div className="mb-8">
-            <h1 className="text-4xl font-bold mb-2 text-junot-text-dark">DeFi Hub</h1>
-            <p className="text-junot-text-muted">Hypothèques, Collatéral, et Staking</p>
+            <h1 className="text-4xl font-bold mb-2 text-junot-text-dark">{t('defi.title')}</h1>
+            <p className="text-junot-text-muted">{t('defi.subtitle')}</p>
           </div>
 
           {/* Loyalty Stats */}

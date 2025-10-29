@@ -6,8 +6,10 @@ import Link from 'next/link';
 import { useWallet } from '@solana/wallet-adapter-react';
 import { getAllProperties, formatPrice, calculateROI } from '@/lib/solana/mockData';
 import { useBadges } from '@/lib/solana/hooks/useBadges';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 export default function Portfolio() {
+  const { t } = useLanguage();
   const { connected, publicKey } = useWallet();
   const [view, setView] = useState<'overview' | 'properties' | 'transactions'>('overview');
   const { getUnlockedBadges, stats } = useBadges();
