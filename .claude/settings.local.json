@@ -10,7 +10,8 @@
       "Bash(npm install:*)",
       "Bash(npm outdated:*)",
       "Bash(npm run build:*)",
-      "Bash(anchor build:*)"
+      "Bash(anchor build:*)",
+      "Bash(git commit -m \"$(cat <<''EOF''\nfeat: Add complete EN/FR bilingual system with English as default\n\n- Implement comprehensive i18n translation system with LanguageContext\n- Add language switcher (EN/FR) in header with localStorage persistence\n- Set English as default language across entire platform\n- Fully translate all 7 pages: Home, Marketplace, Rentals, DeFi, Governance, Portfolio, Badges\n- Complete Rentals page translation including modal, landlord view, and all table headers\n- Add Canva presentation guides in both English and French\n- Create translation documentation guide for developers\n\nAll pages now support seamless language switching with 400+ translation keys.\n\n🤖 Generated with [Claude Code](https://claude.com/claude-code)\n\nCo-Authored-By: Claude <noreply@anthropic.com>\nEOF\n)\")"
     ],
     "deny": [],
     "ask": []
