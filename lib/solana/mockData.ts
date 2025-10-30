@@ -1,6 +1,9 @@
 import { Property } from './types';
 import { PublicKey } from '@solana/web3.js';
 
+// Re-export Property type for external use
+export type { Property } from './types';
+
 // Mock properties for demo - Premium Junot Properties in Paris & Brussels
 export const mockProperties: Property[] = [
   {

@@ -362,7 +362,6 @@ const translations = {
 
         yourMortgages: 'Your Mortgages',
         noMortgages: 'No mortgages yet',
-        loanAmount: 'Loan Amount',
         monthlyPayment: 'Monthly Payment',
         interestRate: 'Interest Rate',
         status: 'Status',
@@ -855,7 +854,6 @@ const translations = {
 
         yourMortgages: 'Vos Hypothèques',
         noMortgages: 'Aucune hypothèque pour le moment',
-        loanAmount: 'Montant du Prêt',
         monthlyPayment: 'Paiement Mensuel',
         interestRate: 'Taux d\'Intérêt',
         status: 'Statut',

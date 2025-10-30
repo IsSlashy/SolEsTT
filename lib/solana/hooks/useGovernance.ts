@@ -139,6 +139,8 @@ export function useGovernance() {
    * Get all proposals for a property
    */
   const getProposals = (propertyAddress?: string): Proposal[] => {
+    if (typeof window === 'undefined') return [];
+
     const proposals = JSON.parse(localStorage.getItem('governance_proposals') || '[]');
 
     if (propertyAddress) {
