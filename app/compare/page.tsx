@@ -6,8 +6,10 @@ import { getAllProperties, formatPrice, calculateROI, Property } from '@/lib/sol
 import PageTransition from '@/components/animations/PageTransition';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 export default function ComparePage() {
+  const { t } = useLanguage();
   const properties = getAllProperties();
   const [selectedProperties, setSelectedProperties] = useState<Property[]>([]);
   const [showSelector, setShowSelector] = useState(true);
@@ -19,7 +21,7 @@ export default function ComparePage() {
       if (selectedProperties.length < 3) {
         setSelectedProperties([...selectedProperties, property]);
       } else {
-        alert('Vous ne pouvez comparer que 3 propriétés maximum');
+        alert(t('compare.maxProperties'));
       }
     }
   };
@@ -65,8 +67,8 @@ export default function ComparePage() {
         <main className="container mx-auto px-6 py-12">
           {/* Header */}
           <div className="mb-8">
-            <h1 className="text-4xl font-bold mb-2 text-junot-text-dark">Comparateur de Propriétés</h1>
-            <p className="text-junot-text-muted">Sélectionnez jusqu'à 3 propriétés pour les comparer côte à côte</p>
+            <h1 className="text-4xl font-bold mb-2 text-junot-text-dark">{t('compare.title')}</h1>
+            <p className="text-junot-text-muted">{t('compare.subtitle')}</p>
           </div>
 
           {/* Selection Info */}
@@ -74,12 +76,12 @@ export default function ComparePage() {
             <div className="flex items-center justify-between">
               <div>
                 <h3 className="text-lg font-bold text-junot-text-dark mb-1">
-                  Propriétés sélectionnées: {selectedProperties.length} / 3
+                  {t('compare.selectedProperties')}: {selectedProperties.length} / 3
                 </h3>
                 <p className="text-sm text-junot-text-muted">
-                  {selectedProperties.length === 0 && 'Sélectionnez des propriétés ci-dessous'}
-                  {selectedProperties.length > 0 && selectedProperties.length < 2 && 'Sélectionnez au moins 2 propriétés pour comparer'}
-                  {selectedProperties.length >= 2 && 'Comparaison prête!'}
+                  {selectedProperties.length === 0 && t('compare.selectBelow')}
+                  {selectedProperties.length > 0 && selectedProperties.length < 2 && t('compare.selectAtLeast2')}
+                  {selectedProperties.length >= 2 && t('compare.comparisonReady')}
                 </p>
               </div>
               {selectedProperties.length > 0 && (
@@ -87,7 +89,7 @@ export default function ComparePage() {
                   onClick={() => setSelectedProperties([])}
                   className="px-4 py-2 bg-red-500/20 hover:bg-red-500/30 text-red-600 rounded-lg transition-colors border border-red-500/30 font-semibold"
                 >
-                  Réinitialiser
+                  {t('compare.reset')}
                 </button>
               )}
             </div>
@@ -116,12 +118,12 @@ export default function ComparePage() {
           {showSelector && (
             <div className="mb-8">
               <div className="flex items-center justify-between mb-4">
-                <h2 className="text-2xl font-bold text-junot-text-dark">Sélectionner des Propriétés</h2>
+                <h2 className="text-2xl font-bold text-junot-text-dark">{t('compare.selectProperties')}</h2>
                 <button
                   onClick={() => setShowSelector(!showSelector)}
                   className="text-junot-text-muted hover:text-junot-gold transition-colors text-sm"
                 >
-                  {showSelector ? 'Masquer' : 'Afficher'}
+                  {showSelector ? t('compare.hide') : t('compare.show')}
                 </button>
               </div>
 
@@ -187,7 +189,7 @@ export default function ComparePage() {
           {comparisonData && selectedProperties.length >= 2 && (
             <div className="modern-card overflow-hidden">
               <div className="p-6 border-b border-junot-border bg-junot-gold/5">
-                <h2 className="text-2xl font-bold text-junot-text-dark">Tableau Comparatif</h2>
+                <h2 className="text-2xl font-bold text-junot-text-dark">{t('compare.comparisonTable')}</h2>
               </div>
 
               <div className="overflow-x-auto">
@@ -195,7 +197,7 @@ export default function ComparePage() {
                   <thead className="bg-white/60 backdrop-blur-sm">
                     <tr>
                       <th className="text-left p-4 font-semibold text-junot-text-dark sticky left-0 bg-white/60 backdrop-blur-sm">
-                        Critère
+                        {t('compare.criteria')}
                       </th>
                       {selectedProperties.map((property) => (
                         <th key={property.id} className="text-center p-4 font-semibold text-junot-text-dark min-w-[250px]">
@@ -210,7 +212,7 @@ export default function ComparePage() {
                     {/* Image */}
                     <tr className="border-t border-junot-border">
                       <td className="p-4 font-semibold text-junot-text-dark sticky left-0 bg-junot-cream backdrop-blur-sm">
-                        Image
+                        {t('compare.image')}
                       </td>
                       {selectedProperties.map((property) => (
                         <td key={property.id} className="p-4 text-center">
@@ -228,7 +230,7 @@ export default function ComparePage() {
                     {/* Location */}
                     <tr className="border-t border-junot-border">
                       <td className="p-4 font-semibold text-junot-text-dark sticky left-0 bg-junot-cream backdrop-blur-sm">
-                        📍 Localisation
+                        📍 {t('compare.location')}
                       </td>
                       {selectedProperties.map((property) => (
                         <td key={property.id} className="p-4 text-center text-junot-text">
@@ -240,7 +242,7 @@ export default function ComparePage() {
                     {/* Total Value */}
                     <tr className="border-t border-junot-border bg-junot-gold/5">
                       <td className="p-4 font-semibold text-junot-text-dark sticky left-0 bg-junot-cream backdrop-blur-sm">
-                        💰 Valeur Totale
+                        💰 {t('compare.totalValue')}
                       </td>
                       {comparisonData.metrics.map((metric) => (
                         <td key={metric.property.id} className="p-4 text-center">
@@ -250,7 +252,7 @@ export default function ComparePage() {
                             {formatPrice(metric.property.totalValue)}
                           </div>
                           {metric.property.totalValue === comparisonData.lowestPrice && (
-                            <div className="text-xs text-junot-gold mt-1">🏆 Prix le plus bas</div>
+                            <div className="text-xs text-junot-gold mt-1">{t('compare.badges.lowestPrice')}</div>
                           )}
                         </td>
                       ))}
@@ -259,7 +261,7 @@ export default function ComparePage() {
                     {/* ROI */}
                     <tr className="border-t border-junot-border">
                       <td className="p-4 font-semibold text-junot-text-dark sticky left-0 bg-junot-cream backdrop-blur-sm">
-                        📈 ROI Annuel
+                        📈 {t('compare.annualROI')}
                       </td>
                       {comparisonData.metrics.map((metric) => (
                         <td key={metric.property.id} className="p-4 text-center">
@@ -269,7 +271,7 @@ export default function ComparePage() {
                             {metric.roi}%
                           </div>
                           {metric.roi === comparisonData.bestROI && (
-                            <div className="text-xs text-junot-gold mt-1">🏆 Meilleur ROI</div>
+                            <div className="text-xs text-junot-gold mt-1">{t('compare.badges.bestROI')}</div>
                           )}
                         </td>
                       ))}
@@ -278,7 +280,7 @@ export default function ComparePage() {
                     {/* Monthly Rent */}
                     <tr className="border-t border-junot-border bg-junot-gold/5">
                       <td className="p-4 font-semibold text-junot-text-dark sticky left-0 bg-junot-cream backdrop-blur-sm">
-                        🏠 Loyer Mensuel
+                        🏠 {t('compare.monthlyRent')}
                       </td>
                       {comparisonData.metrics.map((metric) => (
                         <td key={metric.property.id} className="p-4 text-center font-bold text-junot-text-dark">
@@ -290,7 +292,7 @@ export default function ComparePage() {
                     {/* Annual Yield */}
                     <tr className="border-t border-junot-border">
                       <td className="p-4 font-semibold text-junot-text-dark sticky left-0 bg-junot-cream backdrop-blur-sm">
-                        💵 Rendement Annuel
+                        💵 {t('compare.annualYield')}
                       </td>
                       {comparisonData.metrics.map((metric) => (
                         <td key={metric.property.id} className="p-4 text-center">
@@ -303,7 +305,7 @@ export default function ComparePage() {
                             ({metric.yieldPercent.toFixed(2)}%)
                           </div>
                           {metric.yieldPercent === comparisonData.highestYield && (
-                            <div className="text-xs text-junot-gold mt-1">🏆 Meilleur rendement</div>
+                            <div className="text-xs text-junot-gold mt-1">{t('compare.badges.highestYield')}</div>
                           )}
                         </td>
                       ))}
@@ -312,7 +314,7 @@ export default function ComparePage() {
                     {/* Total Shares */}
                     <tr className="border-t border-junot-border bg-junot-gold/5">
                       <td className="p-4 font-semibold text-junot-text-dark sticky left-0 bg-junot-cream backdrop-blur-sm">
-                        📊 Parts Totales
+                        📊 {t('compare.totalShares')}
                       </td>
                       {selectedProperties.map((property) => (
                         <td key={property.id} className="p-4 text-center font-bold text-junot-text-dark">
@@ -324,7 +326,7 @@ export default function ComparePage() {
                     {/* Available Shares */}
                     <tr className="border-t border-junot-border">
                       <td className="p-4 font-semibold text-junot-text-dark sticky left-0 bg-junot-cream backdrop-blur-sm">
-                        ✅ Parts Disponibles
+                        ✅ {t('compare.availableShares')}
                       </td>
                       {selectedProperties.map((property) => (
                         <td key={property.id} className="p-4 text-center font-bold text-junot-text-dark">
@@ -336,7 +338,7 @@ export default function ComparePage() {
                     {/* Price per Share */}
                     <tr className="border-t border-junot-border bg-junot-gold/5">
                       <td className="p-4 font-semibold text-junot-text-dark sticky left-0 bg-junot-cream backdrop-blur-sm">
-                        💎 Prix par Part
+                        💎 {t('compare.pricePerShare')}
                       </td>
                       {comparisonData.metrics.map((metric) => (
                         <td key={metric.property.id} className="p-4 text-center font-bold text-junot-text-dark">
@@ -348,7 +350,7 @@ export default function ComparePage() {
                     {/* Funding Progress */}
                     <tr className="border-t border-junot-border">
                       <td className="p-4 font-semibold text-junot-text-dark sticky left-0 bg-junot-cream backdrop-blur-sm">
-                        🎯 Financement
+                        🎯 {t('compare.funding')}
                       </td>
                       {comparisonData.metrics.map((metric) => (
                         <td key={metric.property.id} className="p-4">
@@ -369,7 +371,7 @@ export default function ComparePage() {
                     {selectedProperties.some(p => p.metadata.bedrooms) && (
                       <tr className="border-t border-junot-border bg-junot-gold/5">
                         <td className="p-4 font-semibold text-junot-text-dark sticky left-0 bg-junot-cream backdrop-blur-sm">
-                          🛏️ Chambres
+                          🛏️ {t('compare.bedrooms')}
                         </td>
                         {selectedProperties.map((property) => (
                           <td key={property.id} className="p-4 text-center font-bold text-junot-text-dark">
@@ -383,7 +385,7 @@ export default function ComparePage() {
                     {selectedProperties.some(p => p.metadata.bathrooms) && (
                       <tr className="border-t border-junot-border">
                         <td className="p-4 font-semibold text-junot-text-dark sticky left-0 bg-junot-cream backdrop-blur-sm">
-                          🚿 Salles de Bain
+                          🚿 {t('compare.bathrooms')}
                         </td>
                         {selectedProperties.map((property) => (
                           <td key={property.id} className="p-4 text-center font-bold text-junot-text-dark">
@@ -397,7 +399,7 @@ export default function ComparePage() {
                     {selectedProperties.some(p => p.metadata.squareFeet) && (
                       <tr className="border-t border-junot-border bg-junot-gold/5">
                         <td className="p-4 font-semibold text-junot-text-dark sticky left-0 bg-junot-cream backdrop-blur-sm">
-                          📐 Surface
+                          📐 {t('compare.surface')}
                         </td>
                         {selectedProperties.map((property) => (
                           <td key={property.id} className="p-4 text-center font-bold text-junot-text-dark">
@@ -414,7 +416,7 @@ export default function ComparePage() {
                     {selectedProperties.some(p => p.metadata.squareFeet) && (
                       <tr className="border-t border-junot-border">
                         <td className="p-4 font-semibold text-junot-text-dark sticky left-0 bg-junot-cream backdrop-blur-sm">
-                          💶 Prix / m²
+                          💶 {t('compare.pricePerSqm')}
                         </td>
                         {comparisonData.metrics.map((metric) => (
                           <td key={metric.property.id} className="p-4 text-center">
@@ -426,7 +428,7 @@ export default function ComparePage() {
                                   {formatPrice(metric.pricePerSqm)}
                                 </div>
                                 {metric.pricePerSqm === comparisonData.lowestPricePerSqm && (
-                                  <div className="text-xs text-junot-gold mt-1">🏆 Prix/m² le plus bas</div>
+                                  <div className="text-xs text-junot-gold mt-1">{t('compare.badges.lowestPricePerSqm')}</div>
                                 )}
                               </>
                             ) : '-'}
@@ -439,7 +441,7 @@ export default function ComparePage() {
                     {selectedProperties.some(p => p.metadata.yearBuilt) && (
                       <tr className="border-t border-junot-border bg-junot-gold/5">
                         <td className="p-4 font-semibold text-junot-text-dark sticky left-0 bg-junot-cream backdrop-blur-sm">
-                          📅 Année de Construction
+                          📅 {t('compare.yearBuilt')}
                         </td>
                         {selectedProperties.map((property) => (
                           <td key={property.id} className="p-4 text-center font-bold text-junot-text-dark">
@@ -452,7 +454,7 @@ export default function ComparePage() {
                     {/* Action Buttons */}
                     <tr className="border-t border-junot-border">
                       <td className="p-4 font-semibold text-junot-text-dark sticky left-0 bg-junot-cream backdrop-blur-sm">
-                        Actions
+                        {t('compare.actions')}
                       </td>
                       {selectedProperties.map((property) => (
                         <td key={property.id} className="p-4 text-center">
@@ -460,7 +462,7 @@ export default function ComparePage() {
                             href={`/properties/${property.id}`}
                             className="modern-button inline-block px-6 py-3 rounded-lg font-semibold"
                           >
-                            Voir Détails
+                            {t('compare.viewDetails')}
                           </Link>
                         </td>
                       ))}
@@ -475,9 +477,9 @@ export default function ComparePage() {
           {selectedProperties.length < 2 && (
             <div className="modern-card p-12 text-center">
               <div className="text-6xl mb-4">⚖️</div>
-              <h3 className="text-2xl font-bold mb-2 text-junot-text-dark">Commencez la Comparaison</h3>
+              <h3 className="text-2xl font-bold mb-2 text-junot-text-dark">{t('compare.emptyState.title')}</h3>
               <p className="text-junot-text-muted">
-                Sélectionnez au moins 2 propriétés pour voir le tableau comparatif
+                {t('compare.emptyState.description')}
               </p>
             </div>
           )}
