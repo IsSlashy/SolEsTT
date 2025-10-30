@@ -214,16 +214,16 @@ export default function DeFiPage() {
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium mb-2">Term (months)</label>
+                    <label className="block text-sm font-medium mb-2">Loan Term</label>
                     <select
                       value={mortgageForm.termMonths}
                       onChange={(e) => setMortgageForm({ ...mortgageForm, termMonths: e.target.value })}
                       className="w-full px-4 py-3 bg-white/60 backdrop-blur-sm border border-neutral-800 rounded-lg"
                     >
-                      <option value="120">10 years</option>
-                      <option value="180">15 years</option>
-                      <option value="240">20 years</option>
-                      <option value="360">30 years</option>
+                      <option value="120">10 years (120 months)</option>
+                      <option value="180">15 years (180 months)</option>
+                      <option value="240">20 years (240 months)</option>
+                      <option value="360">30 years (360 months)</option>
                     </select>
                   </div>
                   <div>
