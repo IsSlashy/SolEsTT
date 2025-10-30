@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import WalletContextProvider from "@/contexts/WalletContextProvider";
 import { LanguageProvider } from "@/contexts/LanguageContext";
+import HackathonBanner from "@/components/HackathonBanner";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -47,6 +48,7 @@ export default function RootLayout({
 
         <LanguageProvider>
           <WalletContextProvider>
+            <HackathonBanner />
             {children}
           </WalletContextProvider>
         </LanguageProvider>
