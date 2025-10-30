@@ -83,7 +83,7 @@ export default function HackathonBanner() {
               {/* Close button */}
               <button
                 onClick={handleClose}
-                className="absolute -top-4 -right-4 w-10 h-10 bg-white text-black rounded-full flex items-center justify-center hover:bg-junot-gold transition-colors shadow-lg z-10"
+                className="absolute -top-4 -right-4 w-10 h-10 bg-black/90 text-white border-2 border-junot-gold rounded-full flex items-center justify-center hover:bg-junot-gold/20 hover:border-white transition-colors shadow-lg z-10"
                 aria-label="Close"
               >
                 <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">

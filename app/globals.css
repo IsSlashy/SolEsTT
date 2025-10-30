@@ -156,4 +156,58 @@
   ::-webkit-scrollbar-thumb:hover {
     background: var(--accent-primary);
   }
+
+  /* Mobile-first responsive utilities */
+  .container-responsive {
+    @apply w-full px-4 sm:px-6 lg:px-8 mx-auto;
+    max-width: 1440px;
+  }
+
+  .section-padding {
+    @apply py-8 sm:py-12 lg:py-16;
+  }
+
+  .grid-responsive {
+    @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6 lg:gap-8;
+  }
+
+  .card-responsive {
+    @apply p-4 sm:p-6 lg:p-8;
+  }
+
+  .text-responsive-h1 {
+    @apply text-3xl sm:text-4xl lg:text-5xl xl:text-6xl;
+  }
+
+  .text-responsive-h2 {
+    @apply text-2xl sm:text-3xl lg:text-4xl;
+  }
+
+  .text-responsive-h3 {
+    @apply text-xl sm:text-2xl lg:text-3xl;
+  }
+
+  .text-responsive-body {
+    @apply text-sm sm:text-base lg:text-lg;
+  }
+
+  /* Ensure tables are scrollable on mobile */
+  .table-responsive {
+    @apply w-full overflow-x-auto -mx-4 sm:mx-0;
+  }
+
+  .table-responsive table {
+    @apply min-w-full;
+  }
+
+  /* Mobile-friendly cards */
+  .modern-card {
+    @apply p-4 sm:p-6;
+  }
+
+  /* Better touch targets for mobile */
+  button,
+  a {
+    @apply min-h-[44px] sm:min-h-0;
+  }
 }
